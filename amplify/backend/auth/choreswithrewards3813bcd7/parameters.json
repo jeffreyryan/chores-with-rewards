@@ -1,0 +1,68 @@
+{
+    "identityPoolName": "choreswithrewards3813bcd7_identitypool_3813bcd7",
+    "allowUnauthenticatedIdentities": false,
+    "lambdaLogPolicy": "chores_3813bcd7_lambda_log_policy",
+    "openIdLambdaRoleName": "chores_3813bcd7_openid_lambda_role",
+    "openIdRolePolicy": "chores_3813bcd7_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "chores_3813bcd7_openid_lambda_iam_policy",
+    "openIdLogPolicy": "chores_3813bcd7_openid_lambda_log_policy",
+    "userPoolName": "choreswithrewards3813bcd7_userpool_3813bcd7",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "chores3813bcd7_sns-role",
+    "roleExternalId": "chores3813bcd7_role_external_id",
+    "policyName": "chores3813bcd7-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "chores3813bcd7_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "chores3813bcd7_totp_lambda_role",
+    "mfaLambdaLogPolicy": "chores3813bcd7_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "chores3813bcd7_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "chores3813bcd7_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "chores3813bcd7_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "chores3813bcd7_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "chores3813bcd7_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "resourceName": "choreswithrewards3813bcd7",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "default"
+}
