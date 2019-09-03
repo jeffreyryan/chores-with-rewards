@@ -1,1 +1,8 @@
-{}
+{
+	"auth": {
+		"choreswithrewards76c1eff9": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
