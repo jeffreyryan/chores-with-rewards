@@ -1,0 +1,26 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "chores-with-rewards-prod-20190903184344-authRole",
+            "UnauthRoleArn": "arn:aws:iam::413974767629:role/chores-with-rewards-prod-20190903184344-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::413974767629:role/chores-with-rewards-prod-20190903184344-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "chores-with-rewards-prod-20190903184344-deployment",
+            "UnauthRoleName": "chores-with-rewards-prod-20190903184344-unauthRole",
+            "StackName": "chores-with-rewards-prod-20190903184344",
+            "StackId": "arn:aws:cloudformation:us-east-1:413974767629:stack/chores-with-rewards-prod-20190903184344/c1bea6e0-ce7a-11e9-97f9-0e0c84e5bae6"
+        }
+    },
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "chores-with-rewards-dev-20190903184517-authRole",
+            "UnauthRoleArn": "arn:aws:iam::413974767629:role/chores-with-rewards-dev-20190903184517-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::413974767629:role/chores-with-rewards-dev-20190903184517-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "chores-with-rewards-dev-20190903184517-deployment",
+            "UnauthRoleName": "chores-with-rewards-dev-20190903184517-unauthRole",
+            "StackName": "chores-with-rewards-dev-20190903184517",
+            "StackId": "arn:aws:cloudformation:us-east-1:413974767629:stack/chores-with-rewards-dev-20190903184517/f968d5c0-ce7a-11e9-9e8e-0a875441099a"
+        }
+    }
+}
