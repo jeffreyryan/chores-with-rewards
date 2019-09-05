@@ -17,6 +17,7 @@
         <!--  <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> -->
      </div>
      <div>{{ signedIn }}</div>
+     <router-link to="/SignUp">Sign Up</router-link>
   </v-container>
 </template>
 
