@@ -1,6 +1,10 @@
 {
 	"auth": {
+<<<<<<< HEAD
 		"choreswithrewards76c1eff9": {
+=======
+		"choreswithrewards3813bcd7": {
+>>>>>>> dev
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
