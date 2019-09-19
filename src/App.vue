@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Navbar from '@/componentes/Navbar';
+import Navbar from '@/components/Navbar';
 import HelloWorld from './components/HelloWorld';
 
 export default {

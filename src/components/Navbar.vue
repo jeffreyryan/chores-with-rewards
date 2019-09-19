@@ -80,10 +80,10 @@
 </template>
 
 <script>
-import Popup from './Popup'
+// import Popup from './Popup'
 export default {
   name: "Navbar",
-  components: { Popup },
+  components: { },
   data() {
     return {
       drawer: false,
