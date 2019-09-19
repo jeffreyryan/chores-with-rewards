@@ -32,5 +32,11 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "signUp" */ "./views/SignUp.vue")
     },
+    {
+      path: "/Family",
+      name: "Family",
+      component: () =>
+        import(/* webpackChunkName: "kids" */ "./views/Family.vue")
+    }
   ]
 });
