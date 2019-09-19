@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import SignUp from '../components/SignUp';
+import SignUp from '../components/Signup';
 
 export default {
     components: {
