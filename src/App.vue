@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Navbar />
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
@@ -23,12 +24,13 @@
 </template>
 
 <script>
+import Navbar from '@/componentes/Navbar';
 import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    HelloWorld,Navbar
   },
   data: () => ({
     //
