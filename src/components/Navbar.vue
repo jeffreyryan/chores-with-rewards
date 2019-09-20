@@ -8,7 +8,7 @@
       
         <v-app-bar-nav-icon @click="drawer = !drawer" v-if="signedIn"></v-app-bar-nav-icon>
         <v-toolbar-title>Chores With Rewards</v-toolbar-title>
-        <v-navigation-drawer v-model="drawer" absolute temporary color="deep-purple accent-4">
+        <v-navigation-drawer v-model="drawer" absolute bottom temporary color="deep-purple accent-4">
            <v-btn icon right class="red">
                <v-icon class="white--text" @click="drawer = !drawer">mdi-chevron-left</v-icon>
            </v-btn>
@@ -25,7 +25,7 @@
                   <!-- <Popup @choreAdded="snackbar=true"/> -->
               </v-flex>
            </v-layout>
-           <v-list>
+           <v-list nav dense>
                <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
                   <v-list-item-action>
                       <v-icon class="white--text">{{ link.icon }}</v-icon>
