@@ -7,7 +7,8 @@
     >
       
         <v-app-bar-nav-icon @click="drawer = !drawer" v-if="signedIn"></v-app-bar-nav-icon>
-        <v-navigation-drawer v-model="drawer" app color="deep-purple accent-4">
+        <v-toolbar-title>Chores With Rewards</v-toolbar-title>
+        <v-navigation-drawer v-model="drawer" absolute temporary color="deep-purple accent-4">
            <v-btn icon right class="red">
                <v-icon class="white--text" @click="drawer = !drawer">mdi-chevron-left</v-icon>
            </v-btn>
