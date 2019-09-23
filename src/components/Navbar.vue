@@ -47,7 +47,9 @@
 </template>
 
 <script>
+import { Auth } from 'aws-amplify'
 // import Popup from './Popup'
+
 export default {
   name: "Navbar",
   components: { },
@@ -67,6 +69,15 @@ export default {
   computed: {
       signedIn(){
           return this.$store.getters.signedIn;
+      },
+  },
+  methods: {
+      signOut(){
+        Auth.signOut()
+          .then(data =>{
+            this.$store.state.signedIn = !!data;
+          } )
+          .catch(err => console.log(err));
       },
   },
 
