@@ -37,6 +37,12 @@ export default new Router({
       name: "Family",
       component: () =>
         import(/* webpackChunkName: "kids" */ "./views/Family.vue")
-    }
+    },
+    {
+      path: "/Chores",
+      name: "Chores",
+      component: () =>
+        import(/* webpackChunkName: "add" */ "./views/Chores.vue")
+    },
   ]
 });
