@@ -1,5 +1,54 @@
 <template>
-  <HelloWorld />
+
+  <div>
+    <HelloWorld />
+
+    <v-container class="my-5" v-if="signedIn" >
+
+          <v-layout row class="mb-3">
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn small flat color="grey" @click="sortBy('chore')">
+                      <v-icon left small>folder</v-icon>
+                      <span class="caption text-lowercase">By chore name</span>
+                  </v-btn>
+                </template>
+                <span>Sort by chore name</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                  <v-btn small flat color="grey" @click="sortBy('nextDueDate')" slot="activator">
+                      <v-icon left small>date-range</v-icon>
+                      <span class="caption text-lowercase">By due date</span>
+                  </v-btn>
+                  <span>Sort by next due date</span>
+              </v-tooltip>
+          </v-layout>
+
+          <v-card flat v-for="cwr in choresWithRewards" :key="cwr.chore">
+              <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
+                 <v-flex xs12 md6>
+                     <div class="caption grey--text">Chore</div>
+                     <div>{{ cwr.chore }}</div>
+                 </v-flex>
+                 <v-flex xs6 sm4 md2>
+                     <div class="caption grey--text">Reward</div>
+                     <div>{{ cwr.reward }}</div>
+                 </v-flex>
+                 <v-flex xs6 sm4 md2>
+                     <div class="caption grey--text">Due by</div>
+                     <div>{{ cwr.nextDueDate }}</div>
+                 </v-flex>
+                 <v-flex xs2 sm4 md2>
+                     <div class="right">
+                        <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}</v-chip>
+                     </div>
+                 </v-flex>
+              </v-layout>
+              <v-divider></v-divider>
+          </v-card>
+       </v-container>
+    </div>
+
 </template>
 
 <script>
@@ -9,5 +58,45 @@ export default {
   components: {
     HelloWorld,
   },
+  data(){
+    return {
+      choresWithRewards: [
+         {chore: 'Take out the trash', reward: '$5', nextDueDate: '08/24/2019', status: 'Complete'},
+         {chore: 'Clean Room', reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
+         {chore: 'Give Dogs Bath', reward: '$2', nextDueDate: '08/30/2019', status: 'ChorePending'}
+      ]
+    }
+  },
+   methods: {
+     sortBy(prop){
+         this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+     },
+   },
 };
 </script>
+
+<style>
+
+.choresWithRewards.Complete {
+  border-left: 4px solid green;
+}
+
+.choresWithRewards.RewardPending {
+  border-left: 4px solid orange;
+}
+.choresWithRewards.ChorePending {
+  border-left: 4px solid tomato;
+}
+
+.v-chip.Complete {
+  background: green !important;
+}
+
+.v-chip.RewardPending {
+  background: orange !important;
+}
+.v-chip.ChorePending {
+  background: tomato !important;
+}
+
+</style>
