@@ -1,9 +1,9 @@
 <template>
 
   <div>
-    <HelloWorld />
+    <HelloWorld /> 
 
-    <v-container class="my-5" v-if="signedIn" >
+    <v-container class="my-5" v-if="signedIn">
 
           <v-layout row class="mb-3">
               <v-tooltip top>
@@ -67,6 +67,11 @@ export default {
       ]
     }
   },
+  computed: {
+      signedIn(){
+          return this.$store.getters.signedIn;
+      },
+   },
    methods: {
      sortBy(prop){
          this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
