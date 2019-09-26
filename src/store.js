@@ -1,6 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { API, graphqlOperation } from "aws-amplify";
+import * as mutations from "./graphql/mutations";
+
+import * as queries from "./graphql/queries";
+import * as subscriptions from "./graphql/subscriptions";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
