@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "choresWithRewards",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authchoreswithrewards3813bcd7",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

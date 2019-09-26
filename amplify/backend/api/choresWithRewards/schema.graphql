@@ -1,0 +1,41 @@
+type User @model {
+  id: ID!
+  userName: String!
+  email: String!
+  phone: String
+  isParent : Boolean
+  chores: [Chore] @connection(name: "UserChores")
+  reward: [Reward] @connection(name: "UserRewards")
+}
+type Reward @model {
+  id: ID!
+  name: String!
+  desc: String
+  user: User @connection(name: "UserRewards")
+  chores: [Chore] @connection(name: "ChoresWReward")
+  rewardDates: [RewardDate] @connection(name: "RewardDates")
+}
+type Chore @model {
+  id: ID!
+  title: String!
+  desc: String
+  user: User @connection(name: "UserChores")
+  reward: Reward @connection(name: "ChoresWReward")
+  ChoreDates: [ChoreDate] @connection(name: "ChoreDates")
+}
+type ChoreDate @model {
+  id: ID!
+  targetDate : AWSDate
+  completeDate : AWSDate
+  completed : Boolean
+  notes: String
+  chore: Chore @connection(name: "ChoreDates")
+}
+type RewardDate @model {
+  id: ID!
+  targetDate : AWSDate
+  completeDate : AWSDate
+  completed : Boolean
+  notes: String
+  reward: Reward @connection(name: "RewardDates")
+}
