@@ -1,5 +1,11 @@
 <template>
   <div class="about">
+    <v-img
+          :src="require('../assets/cwr_logo.svg')"
+          class="my-3"
+          contain
+          height="200"
+        ></v-img>
     <h1 class="subheading grey--text">About the Creators</h1>
     <p>On July 20th 2019, Jayden Ryan had an idea for an app and asked her dad to build.  Her Dad (Jeff) asked her to draw(plan) her idea so they could work together on it.</h1>
     <br>
