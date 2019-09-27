@@ -60,7 +60,7 @@ export default {
       links: [
          {icon:'dashboard',text: 'Dashboard', route: '/' },
          {icon:'folder',text: 'My Chores',route:'/Chores'},
-         {icon:'folder',text: 'My Rewards',route:'/Rewards'},
+         {icon:'done',text: 'My Rewards',route:'/Rewards'},
         //  {icon:'add',text: 'Add', route:'/Add'},
          {icon:'history',text: 'About', route:'/About'},
         // {icon:'people',text: 'Family', route:'/Family'},

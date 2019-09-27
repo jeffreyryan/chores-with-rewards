@@ -1,11 +1,11 @@
 <template>
   <v-container>
-     <v-img
+    <!-- <v-img
           :src="require('../assets/logo.svg')"
           class="my-3"
           contain
           height="200"
-        ></v-img>
+        ></v-img> -->
      <div v-if="!signedIn">
         <input v-model="login" type="text" name="" placeholder="Login"><br>
         <input v-model="password" type="password" name="" placeholder="Password"><br>
