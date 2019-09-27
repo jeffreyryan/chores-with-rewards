@@ -44,5 +44,11 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "add" */ "./views/Chores.vue")
     },
+    {
+      path: "/Rewards",
+      name: "Rewards",
+      component: () =>
+        import(/* webpackChunkName: "add" */ "./views/Rewards.vue")
+    },
   ]
 });
