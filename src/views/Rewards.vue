@@ -7,7 +7,7 @@
                    v-for="cwr in myRewards"
                    :key="reward"
                >
-                   <v-expansion-panel-header>{{ cwr.chore }}</v-expansion-panel-header>
+                   <v-expansion-panel-header>{{ cwr.reward }}</v-expansion-panel-header>
                    <v-expansion-panel-content>
                        <v-card>
                           <v-card-text class="px-4 grey--text">
@@ -19,7 +19,7 @@
                </v-expansion-panel>
            </v-expansion-panels>
        </v-container>
-       <AddChore />
+       <AddReward />
    </div>
 </template>
 
