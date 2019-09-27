@@ -19,12 +19,15 @@
                </v-expansion-panel>
            </v-expansion-panels>
        </v-container>
+       <AddChore />
    </div>
 </template>
 
 <script>
+import AddChore from '../components/AddChore';
 
 export default {
+  components: { AddChore },
   data(){
     return {
       choresWithRewards: [
