@@ -12,9 +12,9 @@
         </v-card-title>
         <v-card-text>
             <v-form class="px-3" ref="choreForm">
-                 <input v-model="login" type="text" name="" placeholder="Login"><br>
+                 <v-text-field v-model="login" type="text" name="" placeholder="Login"><br>
                  <input v-model="password" type="password" name="" placeholder="Password"><br>
-                 <button flat class="success mx-0 mt-3" @click="signIn">Sign In</button>
+                 <button block class="success mx-0 mt-3" @click="signIn">Sign In</button>
             </v-form>
         </v-card-text>
      </v-card>
