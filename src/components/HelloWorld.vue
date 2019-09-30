@@ -6,11 +6,18 @@
           contain
           height="200"
         ></v-img> -->
-     <div v-if="!signedIn">
-        <input v-model="login" type="text" name="" placeholder="Login"><br>
-        <input v-model="password" type="password" name="" placeholder="Password"><br>
-        <button @click="signIn">Sign In</button>
-     </div>
+     <v-card v-if="!signedIn">
+        <v-card-title>
+           <h2>Login</h2>
+        </v-card-title>
+        <v-card-text>
+            <v-form class="px-3" ref="choreForm">
+                 <input v-model="login" type="text" name="" placeholder="Login"><br>
+                 <input v-model="password" type="password" name="" placeholder="Password"><br>
+                 <button flat class="success mx-0 mt-3" @click="signIn">Sign In</button>
+            </v-form>
+        </v-card-text>
+     </v-card>
      <div v-if="signedIn">
         <v-btn @click="signOut">Sign Out</v-btn>
         <!-- <v-btn @click="addUser">Add User</v-btn> -->
