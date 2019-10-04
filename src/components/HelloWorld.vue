@@ -14,7 +14,7 @@
             <!-- <v-form class="px-3" ref="choreForm"> -->
                  <input v-model="login" type="text" name="" placeholder="Login"><br>
                  <input v-model="password" type="password" name="" placeholder="Password"><br>
-                 <b-btn block class="success mx-0 mt-3" @click="signIn">Sign In</v-btn>
+                 <v-btn block class="success mx-0 mt-3" @click="signIn">Sign In</v-btn>
             <!-- </v-form> -->
             <router-link to="/SignUp">Sign Up</router-link>
         </v-card-text>
