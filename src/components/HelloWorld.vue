@@ -14,8 +14,9 @@
             <!-- <v-form class="px-3" ref="choreForm"> -->
                  <input v-model="login" type="text" name="" placeholder="Login"><br>
                  <input v-model="password" type="password" name="" placeholder="Password"><br>
-                 <button block class="success mx-0 mt-3" @click="signIn">Sign In</button>
+                 <b-btn block class="success mx-0 mt-3" @click="signIn">Sign In</v-btn>
             <!-- </v-form> -->
+            <router-link to="/SignUp">Sign Up</router-link>
         </v-card-text>
      </v-card>
      <div v-if="signedIn">
@@ -23,8 +24,7 @@
         <!-- <v-btn @click="addUser">Add User</v-btn> -->
         <!--  <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> -->
      </div>
-     <div>{{ signedIn }}</div>
-     <router-link to="/SignUp">Sign Up</router-link>
+     <!-- <div>{{ signedIn }}</div> -->
   </v-container>
 </template>
 
