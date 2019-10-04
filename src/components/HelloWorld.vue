@@ -14,9 +14,15 @@
             <!-- <v-form class="px-3" ref="choreForm"> -->
                  <input v-model="login" type="text" name="" placeholder="Login"><br>
                  <input v-model="password" type="password" name="" placeholder="Password"><br>
-                 <v-btn block class="success mx-0 mt-3" @click="signIn">Sign In</v-btn>
+                 <v-layout row class="mb-3">
+                     <v-flex xs2 offset-xs0>
+                       <v-btn block class="success mx-0 mt-3" @click="signIn">Sign In</v-btn>
+                     </v-flex>
+                     <v-flex xs2 offset-xs2>
+                       <router-link to="/SignUp">Sign Up</router-link>
+                     </v-flex>
+                 </v-layout>
             <!-- </v-form> -->
-            <router-link to="/SignUp">Sign Up</router-link>
         </v-card-text>
      </v-card>
      <div v-if="signedIn">
