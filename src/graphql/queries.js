@@ -27,6 +27,33 @@ export const getUser = `query GetUser($id: ID!) {
   }
 }
 `;
+
+export const getUserByName = `query GetUser($userName: userName!) {
+  getUser(userName: $userName) {
+    id
+    userName
+    email
+    phone
+    chores {
+      items {
+        id
+        title
+        desc
+      }
+      nextToken
+    }
+    reward {
+      items {
+        id
+        name
+        desc
+      }
+      nextToken
+    }
+  }
+}
+`;
+
 export const listUsers = `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
