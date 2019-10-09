@@ -25,12 +25,12 @@
             <!-- </v-form> -->
         </v-card-text>
      </v-card>
-     <div v-if="signedIn">
+     <!-- <div v-if="signedIn">
         <v-btn @click="signOut">Sign Out</v-btn>
-        <!-- <v-btn @click="addUser">Add User</v-btn> -->
-        <!--  <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> -->
+         <v-btn @click="addUser">Add User</v-btn> 
+         <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> 
      </div>
-     <!-- <div>{{ signedIn }}</div> -->
+     <div>{{ signedIn }}</div> -->
   </v-container>
 </template>
 
