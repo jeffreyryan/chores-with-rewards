@@ -30,7 +30,7 @@
 
            <template v-slot:append>
              <div class="pa-2">
-               <v-btn block>Logout</v-btn>
+               <v-btn block @click="signOut">Logout</v-btn>
              </div>
            </template>
 
@@ -77,6 +77,8 @@ export default {
         Auth.signOut()
           .then(data =>{
             this.$store.state.signedIn = !!data;
+            this.drawer = !this.drawer;
+            this.$router.push("/");
           } )
           .catch(err => console.log(err));
       },
