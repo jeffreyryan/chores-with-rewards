@@ -12,11 +12,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     signedIn : false,
+    dbUser : [],
   },
   getters: {
     signedIn : state => {
         var signedIn = state.signedIn;
         return signedIn;
+    },
+    dbUser : state => {
+        var dbUser = state.user.dbUser;
+        return dbUser;
     },
   },
   mutations: {
@@ -26,6 +31,11 @@ export default new Vuex.Store({
     signOut: state => {
         state.signedIn = false;
     },
+    populatedbUser: state => {
+          API.graphql(graphqlOperation(queries.listUsers)).then(res => {
+               state.dbUser = res.data.listUsers.items;
+          });
+      },
   },
   actions: {
   signIn: context => {
@@ -34,5 +44,8 @@ export default new Vuex.Store({
      signOut: context => {
          context.commit('signOut');
      },
+     populatedbUser: context => {
+          context.commit('populatedbUser');
+      },
   }
 });
