@@ -18,6 +18,8 @@
 
 <script>
   import { Auth } from 'aws-amplify';
+  import * as mutations from "./../graphql/mutations";
+  import { API, graphqlOperation } from "aws-amplify";
   export default {
       data(){
         return {
