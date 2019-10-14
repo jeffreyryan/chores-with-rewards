@@ -52,7 +52,8 @@
                   .then(res => {
                       this.$router.push("/");
                   })
-                  .catch(err => (this.error = err.message));
+                  // .catch(err => (this.error = err.message));
+                  .catch(err => consol.log(err));
              alert('got here also');
          },
         submit(){
