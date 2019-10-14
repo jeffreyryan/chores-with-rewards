@@ -11,6 +11,7 @@
           <h2>Confirm Sign Up</h2>
           <input v-model="code" type="text" placeholder="Confirmation Code"><br>
           <v-btn @click=confirm>Submit</v-btn>
+          <v-btn @click=insertUser>add db user</v-btn>
       </div>
    </div>
 </template>
