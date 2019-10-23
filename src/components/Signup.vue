@@ -27,6 +27,7 @@
                   <v-spacer></v-spacer>
               </v-card-actions>
           </v-card>
+          <p align="center" >Have an account? <a href="home">Login</a></p>
       </v-flex>
       </v-layout>
       <div v-if="user">
