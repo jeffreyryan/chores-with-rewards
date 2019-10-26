@@ -1,15 +1,17 @@
 <template>
-  <v-container>
-    <!-- <v-img
-          :src="require('../assets/logo.svg')"
+  <v-layout align-center justify-center>
+  <v-flex xs12 sm8 md4 align-center justify-center>
+     <v-img
+          :src="require('../assets/cwr_logo_1.svg')"
           class="my-3"
           contain
           height="200"
-        ></v-img> -->
-     <v-card v-if="!signedIn">
-        <v-card-title>
-           <h2>Login</h2>
-        </v-card-title>
+        ></v-img> 
+     <v-card v-if="!signedIn" class="mt-5">
+        <v-toolbar>
+           <v-toolbar-title>Login</v-toolbar-title>
+        </v-toolbar>
+        <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
         <v-card-text>
             <!-- <v-form class="px-3" ref="choreForm"> -->
                  <input v-model="login" type="text" name="" placeholder="Login"><br>
@@ -31,7 +33,8 @@
          <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> 
      </div>
      <div>{{ signedIn }}</div> -->
-  </v-container>
+  </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -45,6 +48,7 @@ export default {
       userInfo: '',
       login: '',
       password: '',
+      apiRequest: false,
     }
   },
     computed: {
@@ -89,8 +93,10 @@ export default {
     //    this.$store.dispatch('populateChoresWithRewards');
     //},
     signIn(){
+        this.apiRequest=true;
         Auth.signIn(this.login, this.password)
           .then(user =>{
+            this.apiRequest=false;
             this.$store.dispatch('signIn');
           //  this.$store.dispatch('loadUser',user);
           //  this.$store.dispatch('populatedbUser');
