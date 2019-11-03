@@ -2,10 +2,10 @@
   <v-layout align-center justify-center>
   <v-flex xs12 sm8 md4 align-center justify-center>
      <v-img
-          :src="require('../assets/cwr_logo_1.svg')"
+          :src="require('../assets/cwr_logo_2.svg')"
           class="my-3"
           contain
-          height="200"
+          height="400"
         ></v-img> 
      <v-card v-if="!signedIn" class="mt-5">
         <v-toolbar>
@@ -74,21 +74,6 @@ export default {
     });
   },
   methods: {
-    addUser() {
-        alert('in addUser');
-        //const userDetails = {
-        //          userName: 'jerry',
-        //          email: 'jeff_a_ryan@yahoo.com'
-        //      };
-      //  const newUser = API.graphql(
-      //            graphqlOperation(mutations.createUser, { input: userDetails })
-      //        )
-      //            .then(res => {
-      //                this.$router.push("/");
-      //            })
-      //            .catch(err => (this.error = err.message));
-
-    },
     // populateChoresWithRewards() {
     //    this.$store.dispatch('populateChoresWithRewards');
     //},

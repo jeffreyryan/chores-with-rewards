@@ -4,7 +4,7 @@
           <v-flex v-if="!user" xs12 sm8 md4 >
               <v-flex xs12>
                    <router-link> to="/"
-                       <v-img :src="require('../assets/logo.svg')" class="my-3" contain height="65"></v-img>
+                       <v-img :src="require('../assets/cwr_logo_2.svg')" class="my-3" contain height="65"></v-img>
                    </router-link>
               </v-flex>
               <v-card class="elevation-12">
@@ -66,7 +66,7 @@
              console.log(this.login);
              alert('got here');
               const userDetails = {
-                  userName: this.login,
+                  userName: 'jerry',
                   email: this.email
               };
               const newUser = API.graphql(
@@ -76,7 +76,7 @@
                       this.$router.push("/");
                   })
                   // .catch(err => (this.error = err.message));
-                  .catch(err => consol.log(err));
+                  .catch(err => console.log(err));
              alert('got here also');
          },
         submit(){

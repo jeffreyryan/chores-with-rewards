@@ -22,6 +22,9 @@
                   </v-btn>
                   <span>Sort by next due date</span>
               </v-tooltip>
+              <v-btn small flat color="grey" @click="addUser">
+                    <span class="caption text-lowercase">Add User</span>
+              </v-btn>
           </v-layout>
 
           <v-card flat v-for="cwr in choresWithRewards" :key="cwr.chore">
@@ -53,6 +56,8 @@
 
 <script>
 import HelloWorld from '../components/HelloWorld';
+import * as mutations from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   components: {
@@ -76,6 +81,20 @@ export default {
      sortBy(prop){
          this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
      },
+     addUser(){
+         alert('in addUser');
+         const userDetails = {
+               userName: 'Jeffy',
+               email: 'jeff_a_ryan@yahoo.com'
+         };
+         const newUser = API.graphql(
+               graphqlOperation(mutations.createUser, { input: userDetails })
+             )
+               .then(res => {
+                    this.$router.push("/home");
+                })
+               .catch(err => (this.error = err.message));
+    },
    },
 };
 </script>
