@@ -40,6 +40,9 @@
 <script>
 import { Auth } from 'aws-amplify'
 import { AmplifyEventBus } from 'aws-amplify-vue';
+import * as mutations from "../graphql/mutations";
+import * as queries from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   name: 'HelloWorld',
@@ -49,6 +52,7 @@ export default {
       login: '',
       password: '',
       apiRequest: false,
+      dbUserInfo : '',
     }
   },
     computed: {
@@ -83,8 +87,23 @@ export default {
           .then(user =>{
             this.apiRequest=false;
             this.$store.dispatch('signIn');
-          //  this.$store.dispatch('loadUser',user);
-          //  this.$store.dispatch('populatedbUser');
+            //API.graphql(graphqlOperation(queries.getUserByName,{filter: {userName:{eq:"jryan"}}})).then(res => {
+            //    this.dbUserInfo = res.data.listUsers.items;
+            //    console.log(this.dbUserInfo);
+            //});
+            const userDetails = {
+                  userName: this.login,
+                  email: 'jeff_a_ryan@yahoo.com'
+            };
+            const newUser = API.graphql(
+                  graphqlOperation(mutations.createUser, { input: userDetails})
+                  )
+                   .then(res => { 
+                                console.log('user created');
+                    })
+                   .catch(err => {
+                                 console.log('user not created');
+                    })
           })
           .catch(err => console.log(err));
     },
