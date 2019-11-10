@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import * as mutations from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
+
     export default{
       data() {
         return {
@@ -59,9 +62,19 @@
         submit() {
            if(this.$refs.choreForm.validate()) {
               this.addingChore=true;
-              setTimeout(function(){
-                console.log(this.title , this.content);
-              },1)
+              const choreDetails = {
+                 title: this.title
+              };
+              const newChore = API.graphql(
+                  graphqlOperation(mutations.createChore, { input: choreDetails })
+              )
+                .then (res => {
+                  this.$router.push("/");
+                })
+                .catch(err => (this.error = err.message));
+              // setTimeout(function(){
+              //   console.log(this.title , this.content);
+              //},1)
             console.log(this.content);
            }
            this.addingChore=false;
