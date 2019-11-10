@@ -10,6 +10,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/",
+      name: "crib",
+      component: () =>
+         import(/* webpackChunkName: "home" */ "./views/Home.vue")
+    },
+    {
       path: "/home",
       name: "home",
       // component: Home
