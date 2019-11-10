@@ -12,7 +12,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     signedIn : false,
-    dbUser : [],
+    //dbUser : [],
+    dbUser : ''
   },
   getters: {
     signedIn : state => {
@@ -20,7 +21,11 @@ export default new Vuex.Store({
         return signedIn;
     },
     dbUser : state => {
-        var dbUser = state.user.dbUser;
+        var dbUser = state.dbUser;
+        // var dbUserName = state.dbUser[0].userName;
+        //var dbUserName = dbUser[0].userName;
+        //console.log('in dbUserName');
+        //console.log(dbUser[0].userName);
         return dbUser;
     },
   },
@@ -31,10 +36,13 @@ export default new Vuex.Store({
     signOut: state => {
         state.signedIn = false;
     },
-    populatedbUser: state => {
-          API.graphql(graphqlOperation(queries.listUsers)).then(res => {
-               state.dbUser = res.data.listUsers.items;
+    populatedbUser: (state,payload) => {
+          API.graphql(graphqlOperation(queries.listUsers,{filter: {userName:{eq: payload}}})).then(res => {
+               //state.dbUser = res.data.listUsers.items;
+               //console.log(res.data.listUsers.items[0].userName);
+               state.dbUser = res.data.listUsers.items[0].userName;
           });
+      console.log('finished populatedbUser');
       },
   },
   actions: {
@@ -44,8 +52,8 @@ export default new Vuex.Store({
      signOut: context => {
          context.commit('signOut');
      },
-     populatedbUser: context => {
-          context.commit('populatedbUser');
+     populatedbUser: (context,payload) => {
+          context.commit('populatedbUser',payload);
       },
   }
 });

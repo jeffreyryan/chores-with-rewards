@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <v-img
-          :src="require('../assets/cwr_logo.svg')"
+          :src="require('../assets/cwr_logo_2.svg')"
           class="my-3"
           contain
           height="200"

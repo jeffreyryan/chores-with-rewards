@@ -52,7 +52,7 @@ export default {
       login: '',
       password: '',
       apiRequest: false,
-      dbUserInfo : '',
+      dbUserInfo : [],
     }
   },
     computed: {
@@ -71,39 +71,33 @@ export default {
     AmplifyEventBus.$on('authState', info => {
         if(info === "signedIn") {
           this.findUser();
-          // this.$store.dispatch('signIn');
         } else {
            this.$store.dispatch('signOut');
         }
     });
+    // this.$store.dispatch('populatedbUser',this.login);
   },
   methods: {
-    // populateChoresWithRewards() {
-    //    this.$store.dispatch('populateChoresWithRewards');
-    //},
     signIn(){
         this.apiRequest=true;
         Auth.signIn(this.login, this.password)
           .then(user =>{
             this.apiRequest=false;
             this.$store.dispatch('signIn');
-            //API.graphql(graphqlOperation(queries.getUserByName,{filter: {userName:{eq:"jryan"}}})).then(res => {
-            //    this.dbUserInfo = res.data.listUsers.items;
-            //    console.log(this.dbUserInfo);
-            //});
             const userDetails = {
                   userName: this.login,
                   email: 'jeff_a_ryan@yahoo.com'
             };
-            const newUser = API.graphql(
-                  graphqlOperation(mutations.createUser, { input: userDetails})
-                  )
-                   .then(res => { 
-                                console.log('user created');
-                    })
-                   .catch(err => {
-                                 console.log('user not created');
-                    })
+            ///// this was working, just need to add a call to check to see if the user exists!!!!!!
+            //  const newUser = API.graphql(
+            //       graphqlOperation(mutations.createUser, { input: userDetails})
+            //       )
+            //        .then(res => { 
+            //                     console.log('user created');
+            //         })
+            //        .catch(err => {
+            //                      console.log('user not created');
+            //         })
           })
           .catch(err => console.log(err));
     },
@@ -118,7 +112,10 @@ export default {
       try {
         const user= await Auth.currentAuthenticatedUser();
         this.$store.dispatch('signIn');
-        console.log(user);
+        console.log(user.username);
+        this.login=user.username;
+        console.log(this.login);
+        this.$store.dispatch('populatedbUser',this.login);
       } catch (err){
           this.$store.dispatch('signOut');
         }
