@@ -12,8 +12,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     signedIn : false,
-    //dbUser : [],
-    dbUser : ''
+    dbUser : '',
+    dbUserID : '',
+    chores : [],
   },
   getters: {
     signedIn : state => {
@@ -22,11 +23,15 @@ export default new Vuex.Store({
     },
     dbUser : state => {
         var dbUser = state.dbUser;
-        // var dbUserName = state.dbUser[0].userName;
-        //var dbUserName = dbUser[0].userName;
-        //console.log('in dbUserName');
-        //console.log(dbUser[0].userName);
         return dbUser;
+    },
+    dbUserId : state => {
+        var dbUserId = state.dbUserId;
+        return dbUserId;
+    },
+    chores : state => {
+        var chores = state.chores;
+        return chores;
     },
   },
   mutations: {
@@ -38,15 +43,18 @@ export default new Vuex.Store({
     },
     populatedbUser: (state,payload) => {
           API.graphql(graphqlOperation(queries.listUsers,{filter: {userName:{eq: payload}}})).then(res => {
-               //state.dbUser = res.data.listUsers.items;
-               //console.log(res.data.listUsers.items[0].userName);
                state.dbUser = res.data.listUsers.items[0].userName;
+               state.dbUserID = res.data.listUsers.items[0].id;
           });
-      console.log('finished populatedbUser');
       },
+    populateChores: (state,payload) => {
+        API.graphql(graphqlOperation(queries.listChores,{filter: {choreUserId:{eq: payload}}})).then(res => {
+            state.chores = res.data.listChores.items;
+        });
+    },
   },
   actions: {
-  signIn: context => {
+     signIn: context => {
          context.commit('signIn');
      },
      signOut: context => {
@@ -54,6 +62,9 @@ export default new Vuex.Store({
      },
      populatedbUser: (context,payload) => {
           context.commit('populatedbUser',payload);
-      },
+     },
+     populateChores: (context,payload) => {
+          context.commit('populateChores',payload);
+     },
   }
 });

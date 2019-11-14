@@ -63,7 +63,11 @@ import { API, graphqlOperation } from "aws-amplify";
            if(this.$refs.choreForm.validate()) {
               this.addingChore=true;
               const choreDetails = {
-                 title: this.title
+                 title: this.title,
+                 desc: this.content,
+                 choreUserId: '3a376292-8f27-49a0-9c30-be4095639d3f'
+                 //user: [{userName: 'jryan'}]
+                 //user: {id:'3a376292-8f27-49a0-9c30-be4095639d3f'}
               };
               const newChore = API.graphql(
                   graphqlOperation(mutations.createChore, { input: choreDetails })

@@ -40,9 +40,9 @@
 <script>
 import { Auth } from 'aws-amplify'
 import { AmplifyEventBus } from 'aws-amplify-vue';
-import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/mutations";
-import { API, graphqlOperation } from "aws-amplify";
+//import * as mutations from "../graphql/mutations";
+//import * as queries from "../graphql/mutations";
+//import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   name: 'HelloWorld',
@@ -64,7 +64,14 @@ export default {
       },
       dbUser() {
           return this.$store.getters.dbUser;
-      }
+      },
+      dbUserId(){
+          //return this.$store.getters.dbUserId;
+          return '3a376292-8f27-49a0-9c30-be4095639d3f';
+      },
+      chores() {
+          return this.$store.getters.chores;
+      },
   },
   created() {
     this.findUser();
@@ -116,6 +123,7 @@ export default {
         this.login=user.username;
         console.log(this.login);
         this.$store.dispatch('populatedbUser',this.login);
+        this.$store.dispatch('populateChores',this.dbUserId);
       } catch (err){
           this.$store.dispatch('signOut');
         }
