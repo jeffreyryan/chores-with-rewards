@@ -123,7 +123,7 @@ export default {
         this.login=user.username;
         console.log(this.login);
         this.$store.dispatch('populatedbUser',this.login);
-        this.$store.dispatch('populateChores',this.dbUserId);
+        //this.$store.dispatch('populateChores',this.dbUserId);
       } catch (err){
           this.$store.dispatch('signOut');
         }
