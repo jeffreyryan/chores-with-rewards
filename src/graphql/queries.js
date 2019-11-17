@@ -77,6 +77,33 @@ export const listUsers = `query ListUsers(
   }
 }
 `;
+
+export const getUsersChoresAndRewards = `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+  ){
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+     items {
+       id
+       userName
+       email
+       phone
+       chores {
+         items{
+             id
+             title
+             reward {
+               id
+               name
+             }
+          }
+       }
+      }
+      nextToken
+   }
+}
+`;
 export const getReward = `query GetReward($id: ID!) {
   getReward(id: $id) {
     id

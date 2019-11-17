@@ -42,7 +42,8 @@ export default new Vuex.Store({
         state.signedIn = false;
     },
     populatedbUser: (state,payload) => {
-          API.graphql(graphqlOperation(queries.listUsers,{filter: {userName:{eq: payload}}})).then(res => {
+          //API.graphql(graphqlOperation(queries.listUsers,{filter: {userName:{eq: payload}}})).then(res => {
+            API.graphql(graphqlOperation(queries.getUsersChoresAndRewards,{filter: {userName:{eq: payload}}})).then(res => {
                state.dbUser = res.data.listUsers.items[0].userName;
                state.dbUserID = res.data.listUsers.items[0].id;
           });
