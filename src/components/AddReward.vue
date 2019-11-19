@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import * as mutations from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
+
     export default{
       data() {
         return {
@@ -59,10 +62,18 @@
         submit() {
            if(this.$refs.rewardForm.validate()) {
               this.addingReward=true;
-              setTimeout(function(){
-                console.log(this.title , this.content);
-              },1)
-            console.log(this.content);
+              const rewardDetails = {
+                    name: this.title,
+                    desc: this.content,
+                    rewardUserId: '3a376292-8f27-49a0-9c30-be4095639d3f'
+              };
+              const newReward = API.graphql(
+                    graphqlOperation(mutations.createReward, { input: rewardDetails })
+              )
+                .then (res => {
+                  this.$router.push("/");
+                })
+                .catch(err => (this.error = err.message));
            }
            this.addingReward=false;
            this.dialog=false;
