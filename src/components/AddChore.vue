@@ -26,6 +26,10 @@
                               readonly
                               v-on="on"
                           ></v-text-field>
+                          <v-select
+                              :items="rewards"
+                              label="Reward"
+                          ></v-select>
                       </template>
                       <v-date-picker
                           v-model="due"
@@ -48,6 +52,7 @@ import { API, graphqlOperation } from "aws-amplify";
     export default{
       data() {
         return {
+          rewards: ['$5','$1','DQ Icecream'],
           title: '',
           content: '',
           due: null,

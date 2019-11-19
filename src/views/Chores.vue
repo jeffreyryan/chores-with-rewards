@@ -13,6 +13,12 @@
                           <v-card-text class="px-4 grey--text">
                              <div class="font-weight-bold">due by {{ cwr.nextDueDate }}</div>
                              <div>info</div>
+                             <v-select
+                                :items="rewards"
+                                label="Reward"
+                                :value="whaxahiby"
+                                @change='updateReward'
+                             ></v-select>
                           </v-card-text>
                        </v-card>
                    </v-expansion-panel-content>
@@ -34,7 +40,8 @@ export default {
          {chore: 'Take out the trash', person:'jayden', reward: '$5', nextDueDate: '08/24/2019', status: 'Complete'},
          {chore: 'Clean Room', person:'jay',  reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
          {chore: 'Give Dogs Bath', person:'jayden', reward: '$2', nextDueDate: '08/30/2019', status: 'ChorePending'}
-      ]
+      ],
+      rewards: ['$5','$1','DQ Icecream']
     }
   },
    computed: {
@@ -43,6 +50,12 @@ export default {
             return chore.person === 'jayden'
          })
       }
-   }
+   },
+   methods: {
+      updateReward(value)
+      {
+         console.log('update choresWithRewards');
+      },
+   },
 };
 </script>
