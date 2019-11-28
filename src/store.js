@@ -15,6 +15,7 @@ export default new Vuex.Store({
     dbUser : '',
     dbUserID : '',
     chores : [],
+    choresWithRewards : [],
   },
   getters: {
     signedIn : state => {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
         var chores = state.chores;
         return chores;
     },
+    choresWithRewards : state => {
+        var choresWithRewards = state.choresWithRewards;
+        return choresWithRewards;
+    },
   },
   mutations: {
     signIn: state => {
@@ -46,6 +51,7 @@ export default new Vuex.Store({
             API.graphql(graphqlOperation(queries.getUsersChoresAndRewards,{filter: {userName:{eq: payload}}})).then(res => {
                state.dbUser = res.data.listUsers.items[0].userName;
                state.dbUserID = res.data.listUsers.items[0].id;
+               state.choresWithRewards = res.data.listUsers.items[0].chores;
           });
       },
     populateChores: (state,payload) => {
