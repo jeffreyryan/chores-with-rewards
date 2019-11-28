@@ -17,6 +17,12 @@
                        </v-card>
                    </v-expansion-panel-content>
                </v-expansion-panel>
+               <v-expansion-panel
+                  v-for="rwd in myDbRewards.items"
+                    :key="rwd.name"
+               >
+                  <v-expansion-panel-header>{{ rwd.name }}</v-expansion-panel-header>
+               </v-expansion-panel>
            </v-expansion-panels>
        </v-container>
        <AddReward />
@@ -37,12 +43,19 @@ export default {
       ]
     }
   },
+  created() {
+      this.$store.dispatch('populateRewards','jryan');
+  },
    computed: {
       myRewards() {
          return this.choresWithRewards.filter(chore => {
             return chore.person === 'jayden'
          })
-      }
+      },
+     myDbRewards() {
+         //this.$store.dispatch('populateRewards','jryan');
+         return this.$store.getters.rewards;
+     }
    }
 };
 </script>

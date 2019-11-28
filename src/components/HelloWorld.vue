@@ -69,9 +69,6 @@ export default {
           //return this.$store.getters.dbUserId;
           return '3a376292-8f27-49a0-9c30-be4095639d3f';
       },
-      chores() {
-          return this.$store.getters.chores;
-      },
   },
   created() {
     this.findUser();

@@ -14,7 +14,7 @@ export default new Vuex.Store({
     signedIn : false,
     dbUser : '',
     dbUserID : '',
-    chores : [],
+    rewards : [],
     choresWithRewards : [],
   },
   getters: {
@@ -30,9 +30,9 @@ export default new Vuex.Store({
         var dbUserId = state.dbUserId;
         return dbUserId;
     },
-    chores : state => {
-        var chores = state.chores;
-        return chores;
+    rewards : state => {
+        var rewards = state.rewards;
+        return rewards;
     },
     choresWithRewards : state => {
         var choresWithRewards = state.choresWithRewards;
@@ -54,9 +54,9 @@ export default new Vuex.Store({
                state.choresWithRewards = res.data.listUsers.items[0].chores;
           });
       },
-    populateChores: (state,payload) => {
-        API.graphql(graphqlOperation(queries.listChores,{filter: {choreUserId:{eq: payload}}})).then(res => {
-            state.chores = res.data.listChores.items;
+    populateRewards: (state,payload) => {
+        API.graphql(graphqlOperation(queries.getUsersRewards,{filter: {userName:{eq: payload}}})).then(res => {
+            state.rewards = res.data.listUsers.items[0].reward;
         });
     },
   },
@@ -70,8 +70,8 @@ export default new Vuex.Store({
      populatedbUser: (context,payload) => {
           context.commit('populatedbUser',payload);
      },
-     populateChores: (context,payload) => {
-          context.commit('populateChores',payload);
+     populateRewards: (context,payload) => {
+          context.commit('populateRewards',payload);
      },
   }
 });
