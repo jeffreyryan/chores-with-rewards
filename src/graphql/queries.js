@@ -104,6 +104,29 @@ export const getUsersChoresAndRewards = `query ListUsers(
    }
 }
 `;
+
+export const getUsersRewards = `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+  ){
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userName
+      email
+      reward {
+        items{
+          id
+          name
+        }
+      }
+    }
+    nextToken
+   }
+}
+`;
+           
 export const getReward = `query GetReward($id: ID!) {
   getReward(id: $id) {
     id
