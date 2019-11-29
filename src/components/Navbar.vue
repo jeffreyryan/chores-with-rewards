@@ -48,6 +48,7 @@
 
 <script>
 import { Auth } from 'aws-amplify'
+import { AmplifyEventBus } from 'aws-amplify-vue';
 // import Popup from './Popup'
 
 export default {
@@ -67,6 +68,16 @@ export default {
       ]
     }
   },
+  created() {
+    this.findUser();
+    AmplifyEventBus.$on('authState',info => {
+        if(info === "signedIn") {
+            this.findUser();
+        } else {
+            this.$store.dispatch('signOut');
+        }
+    });
+  },
   computed: {
       signedIn(){
           return this.$store.getters.signedIn;
@@ -82,6 +93,15 @@ export default {
           } )
           .catch(err => console.log(err));
       },
+      async findUser(){
+        try {
+          const user = await Auth.currentAuthenticatedUser();
+          this.$store.dispatch('signIn');
+          this.login=user.username;
+        } catch (err){
+           this.$store.dispatch('signOut');
+          }
+     }
   },
 
 }

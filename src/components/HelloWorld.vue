@@ -70,17 +70,16 @@ export default {
           return '3a376292-8f27-49a0-9c30-be4095639d3f';
       },
   },
-  created() {
-    this.findUser();
-    AmplifyEventBus.$on('authState', info => {
-        if(info === "signedIn") {
-          this.findUser();
-        } else {
-           this.$store.dispatch('signOut');
-        }
-    });
-    // this.$store.dispatch('populatedbUser',this.login);
-  },
+  //created() {
+  //  this.findUser();
+  //  AmplifyEventBus.$on('authState', info => {
+  //      if(info === "signedIn") {
+  //        this.findUser();
+  //      } else {
+  //         this.$store.dispatch('signOut');
+  //      }
+  //  });
+  //},
   methods: {
     signIn(){
         this.apiRequest=true;
@@ -112,19 +111,19 @@ export default {
           } )
           .catch(err => console.log(err));
     },
-    async findUser(){
-      try {
-        const user= await Auth.currentAuthenticatedUser();
-        this.$store.dispatch('signIn');
-        console.log(user.username);
-        this.login=user.username;
-        console.log(this.login);
-        this.$store.dispatch('populatedbUser',this.login);
-        //this.$store.dispatch('populateChores',this.dbUserId);
-      } catch (err){
-          this.$store.dispatch('signOut');
-        }
-    }
+   // async findUser(){
+   //   try {
+   //     const user= await Auth.currentAuthenticatedUser();
+   //     this.$store.dispatch('signIn');
+   //     console.log(user.username);
+   //     this.login=user.username;
+   //     console.log(this.login);
+   //     this.$store.dispatch('populatedbUser',this.login);
+   //     //this.$store.dispatch('populateChores',this.dbUserId);
+   //   } catch (err){
+   //       this.$store.dispatch('signOut');
+   //     }
+   // }
   },
 };
 </script>

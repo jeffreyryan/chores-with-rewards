@@ -3,7 +3,7 @@
        <h1>Rewards</h1>
        <v-container class="my-5">
            <v-expansion-panels>
-               <v-expansion-panel
+               <!-- <v-expansion-panel
                    v-for="cwr in myRewards"
                    :key="reward"
                >
@@ -16,7 +16,7 @@
                           </v-card-text>
                        </v-card>
                    </v-expansion-panel-content>
-               </v-expansion-panel>
+               </v-expansion-panel> -->
                <v-expansion-panel
                   v-for="rwd in myDbRewards.items"
                     :key="rwd.name"
@@ -55,7 +55,7 @@ export default {
      myDbRewards() {
          //this.$store.dispatch('populateRewards','jryan');
          return this.$store.getters.rewards;
-     }
+     },
    }
 };
 </script>

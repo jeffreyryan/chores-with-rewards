@@ -27,10 +27,10 @@
                               v-on="on"
                           ></v-text-field>
                       </template>
-                      <v-date-picker
+                      <!-- <v-date-picker
                           v-model="due"
                           @change="menu1 = false"
-                      ></v-date-picker>
+                      ></v-date-picker> -->
                   </v-menu>
                   <v-spacer></v-spacer>
 
@@ -71,7 +71,8 @@ import { API, graphqlOperation } from "aws-amplify";
                     graphqlOperation(mutations.createReward, { input: rewardDetails })
               )
                 .then (res => {
-                  this.$router.push("/");
+                  this.$store.dispatch('populateRewards','jryan');
+                  this.$router.push("/Rewards");
                 })
                 .catch(err => (this.error = err.message));
            }
