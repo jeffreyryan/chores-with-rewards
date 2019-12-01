@@ -22,6 +22,11 @@
                     :key="rwd.name"
                >
                   <v-expansion-panel-header>{{ rwd.name }}</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                      <!-- <v-card>  -->
+                          <v-btn @click="deleteReward(rwd.id)" color="error">Delete Reward</v-btn>
+                      <!-- </v-card> -->
+                  </v-expansion-panel-content>
                </v-expansion-panel>
            </v-expansion-panels>
        </v-container>
@@ -31,6 +36,8 @@
 
 <script>
 import AddReward from '../components/AddReward';
+import * as mutations from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   components: { AddReward },
@@ -56,6 +63,21 @@ export default {
          //this.$store.dispatch('populateRewards','jryan');
          return this.$store.getters.rewards;
      },
-   }
+   },
+   methods: {
+     deleteReward(rewardId) {
+       console.log(rewardId);
+       const targetReward = {
+             id: rewardId
+       };
+       const deleteRWD = API.graphql(
+           graphqlOperation(mutations.deleteReward, {input: targetReward })
+       )
+          .then(res => {
+              this.$store.dispatch('populateRewards','jryan');
+          })
+          .catch(err => (this.error = err.message));
+     }
+   },
 };
 </script>
