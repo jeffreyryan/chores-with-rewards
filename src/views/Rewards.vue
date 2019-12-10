@@ -50,18 +50,17 @@ export default {
       ]
     }
   },
-  created() {
-      this.$store.dispatch('populateRewards','jryan');
-  },
    computed: {
-      myRewards() {
-         return this.choresWithRewards.filter(chore => {
-            return chore.person === 'jayden'
-         })
-      },
+   //   myRewards() {
+   //      return this.choresWithRewards.filter(chore => {
+   //         return chore.person === 'jayden'
+   //      })
+   //   },
      myDbRewards() {
-         //this.$store.dispatch('populateRewards','jryan');
          return this.$store.getters.rewards;
+     },
+     dbUser() {
+         return this.$store.getters.dbUser;
      },
    },
    methods: {
@@ -74,7 +73,7 @@ export default {
            graphqlOperation(mutations.deleteReward, {input: targetReward })
        )
           .then(res => {
-              this.$store.dispatch('populateRewards','jryan');
+              this.$store.dispatch('populateRewards',this.dbUser);
           })
           .catch(err => (this.error = err.message));
      }

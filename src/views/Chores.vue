@@ -35,15 +35,17 @@ import UpdateChore from '../components/UpdateChore';
 
 export default {
   components: { AddChore,UpdateChore },
-  data(){
-    return {
-      setLocale: null
-    }
-  },
-   created(){
-     this.$store.dispatch('populatedbUser','jryan');
-     this.$store.dispatch('populateRewards','jryan');
+   data(){
+       return {
+          username:'',
+       }
    },
+   //created(){
+     //username= this.$store.getters.dbUser;
+     //console.log(username);
+     //this.$store.dispatch('populatedbUser',dbUser);
+     //this.$store.dispatch('populateRewards',dbUser);
+   //},
    computed: {
       //myChores() {
       //   return this.choresWithRewards.filter(chore => {
@@ -51,14 +53,10 @@ export default {
       //   })
       //},
       myDbChores(){
-          console.log('computing myDbChores');
+          //console.log('computing myDbChores');
           return this.$store.getters.choresWithRewards;
       },
-      myDbRewards(){
-          return this.$store.getters.rewards;
-      },
       dbUser(){
-          //return 'jryan';
           return this.$store.getters.dbUser;
       }
    },

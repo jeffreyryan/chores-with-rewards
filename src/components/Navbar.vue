@@ -82,6 +82,7 @@ export default {
       signedIn(){
           return this.$store.getters.signedIn;
       },
+      
   },
   methods: {
       signOut(){
@@ -95,9 +96,11 @@ export default {
       },
       async findUser(){
         try {
+          console.log('IN FINDUSER');
           const user = await Auth.currentAuthenticatedUser();
           this.$store.dispatch('signIn');
-          this.login=user.username;
+          this.$store.dispatch('populatedbUser',user.username);
+          this.$store.dispatch('populateRewards',user.username);
         } catch (err){
            this.$store.dispatch('signOut');
           }
