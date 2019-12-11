@@ -49,6 +49,22 @@
               </v-layout>
               <v-divider></v-divider>
           </v-card>
+          <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
+              <v-layout row wrap :class="`pa-3 myDbChores Pending`">
+                  <v-flex xs12 md6>
+                     <div class="caption grey--text">Chore</div>
+                     <div>{{ cwr.title }} </div>
+                  </v-flex>
+                  <v-flex xs6 sm4 md2>
+                      <div class="caption grey--text">Reward</div>
+                      <div>{{cwr.reward && cwr.reward.name}} </div>
+                  </v-flex>
+                  <v-flex xs8 sm4 md2>
+                      <div class="caption grey--text">Due by</div>
+                      <div>12/31/2019</div>
+                  </v-flex> 
+              </v-layout>
+          </v-card>
        </v-container>
     </div>
 
@@ -75,6 +91,9 @@ export default {
   computed: {
       signedIn(){
           return this.$store.getters.signedIn;
+      },
+      myDbChores(){
+          return this.$store.getters.choresWithRewards;
       },
    },
    methods: {

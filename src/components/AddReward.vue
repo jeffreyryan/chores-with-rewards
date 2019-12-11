@@ -10,7 +10,7 @@
             <v-card-text>
                 <v-form class="px-3" ref="rewardForm">
                   <v-text-field label="Title" v-model="title" prepend-icon="folder" :rules="inputRules"></v-text-field>
-                  <v-textarea label="Information" v-model="content" prepend-icon="edit"></v-textarea>
+                  <v-textarea label="Information" v-model="content" prepend-icon="edit" :rules="inputRules"></v-textarea>
                   
                   <v-menu
                       v-model="menu1"

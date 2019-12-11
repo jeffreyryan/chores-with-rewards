@@ -27,8 +27,11 @@
                               v-on="on"
                           ></v-text-field>
                           <v-select
-                              :items="rewards"
+                              :items="myDbRewards.items"
+                              v-model="selectRewardID"
                               label="Reward"
+                              item-value="id"
+                              item-text="name"
                           ></v-select>
                       </template>
                       <v-date-picker
@@ -52,7 +55,8 @@ import { API, graphqlOperation } from "aws-amplify";
     export default{
       data() {
         return {
-          rewards: ['$5','$1','DQ Icecream'],
+          //rewards: ['$5','$1','DQ Icecream'],
+          selectRewardID: '',
           title: '',
           content: '',
           due: null,
@@ -70,7 +74,8 @@ import { API, graphqlOperation } from "aws-amplify";
               const choreDetails = {
                  title: this.title,
                  desc: this.content,
-                 choreUserId: '3a376292-8f27-49a0-9c30-be4095639d3f'
+                 choreUserId: '3a376292-8f27-49a0-9c30-be4095639d3f',
+                 choreRewardId: this.selectRewardID
                  //user: [{userName: 'jryan'}]
                  //user: {id:'3a376292-8f27-49a0-9c30-be4095639d3f'}
               };
@@ -91,10 +96,13 @@ import { API, graphqlOperation } from "aws-amplify";
            // this.$emit('choreAdded');
         }
       },
-       //computed: {
-        //  formattedDate(){
+       computed: {
+           myDbRewards(){
+               return this.$store.getters.rewards;
+           }
+         // formattedDate(){
          //    return this.due ? format(this.due,'Do MMM YYYY') : '' 
           //}
-       //}
+       }
     }
 </script>

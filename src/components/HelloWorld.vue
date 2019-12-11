@@ -28,7 +28,6 @@
         </v-card-text>
      </v-card>
      <!-- <div v-if="signedIn">
-        <v-btn @click="signOut">Sign Out</v-btn>
          <v-btn @click="addUser">Add User</v-btn> 
          <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> 
      </div>
@@ -70,40 +69,7 @@ export default {
           return '3a376292-8f27-49a0-9c30-be4095639d3f';
       },
   },
-  //created() {
-  //  this.findUser();
-  //  AmplifyEventBus.$on('authState', info => {
-  //      if(info === "signedIn") {
-  //        this.findUser();
-  //      } else {
-  //         this.$store.dispatch('signOut');
-  //      }
-  //  });
-  //},
   methods: {
-    signIn(){
-        this.apiRequest=true;
-        Auth.signIn(this.login, this.password)
-          .then(user =>{
-            this.apiRequest=false;
-            this.$store.dispatch('signIn');
-            const userDetails = {
-                  userName: this.login,
-                  email: 'jeff_a_ryan@yahoo.com'
-            };
-            ///// this was working, just need to add a call to check to see if the user exists!!!!!!
-            //  const newUser = API.graphql(
-            //       graphqlOperation(mutations.createUser, { input: userDetails})
-            //       )
-            //        .then(res => { 
-            //                     console.log('user created');
-            //         })
-            //        .catch(err => {
-            //                      console.log('user not created');
-            //         })
-          })
-          .catch(err => console.log(err));
-    },
     signOut(){
         Auth.signOut()
           .then(data =>{
@@ -111,19 +77,6 @@ export default {
           } )
           .catch(err => console.log(err));
     },
-   // async findUser(){
-   //   try {
-   //     const user= await Auth.currentAuthenticatedUser();
-   //     this.$store.dispatch('signIn');
-   //     console.log(user.username);
-   //     this.login=user.username;
-   //     console.log(this.login);
-   //     this.$store.dispatch('populatedbUser',this.login);
-   //     //this.$store.dispatch('populateChores',this.dbUserId);
-   //   } catch (err){
-   //       this.$store.dispatch('signOut');
-   //     }
-   // }
   },
 };
 </script>
