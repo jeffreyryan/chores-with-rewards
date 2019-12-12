@@ -30,7 +30,7 @@
                </v-expansion-panel>
            </v-expansion-panels>
        </v-container>
-       <AddReward />
+       <AddReward :dbUser="this.dbUser" :dbUserID="this.dbUserID" />
    </div>
 </template>
 
@@ -61,6 +61,9 @@ export default {
      },
      dbUser() {
          return this.$store.getters.dbUser;
+     },
+     dbUserID() {
+         return this.$store.getters.dbUserID;
      },
    },
    methods: {

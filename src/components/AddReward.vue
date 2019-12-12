@@ -46,6 +46,7 @@ import * as mutations from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
     export default{
+      props: ['dbUser','dbUserID'],
       data() {
         return {
           title: '',
@@ -65,13 +66,14 @@ import { API, graphqlOperation } from "aws-amplify";
               const rewardDetails = {
                     name: this.title,
                     desc: this.content,
-                    rewardUserId: '3a376292-8f27-49a0-9c30-be4095639d3f'
+                    rewardUserId: this.dbUserID
               };
+                    //rewardUserId: '3a376292-8f27-49a0-9c30-be4095639d3f'
               const newReward = API.graphql(
                     graphqlOperation(mutations.createReward, { input: rewardDetails })
               )
                 .then (res => {
-                  this.$store.dispatch('populateRewards','jryan');
+                  this.$store.dispatch('populateRewards',this.dbUser);
                   this.$router.push("/Rewards");
                 })
                 .catch(err => (this.error = err.message));

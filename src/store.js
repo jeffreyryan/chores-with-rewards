@@ -26,9 +26,9 @@ export default new Vuex.Store({
         var dbUser = state.dbUser;
         return dbUser;
     },
-    dbUserId : state => {
-        var dbUserId = state.dbUserId;
-        return dbUserId;
+    dbUserID : state => {
+        var dbUserID = state.dbUserID;
+        return dbUserID;
     },
     rewards : state => {
         var rewards = state.rewards;
