@@ -25,7 +25,7 @@
                </v-expansion-panel> 
            </v-expansion-panels>
        </v-container>
-       <AddChore />
+       <AddChore :dbUser="this.dbUser" :dbUserID="this.dbUserID"/>
    </div>
 </template>
 
@@ -58,7 +58,10 @@ export default {
       },
       dbUser(){
           return this.$store.getters.dbUser;
-      }
+      },
+      dbUserID(){
+          return this.$store.getters.dbUserID;
+      },
    },
    methods: {
       panelExpanded(value)

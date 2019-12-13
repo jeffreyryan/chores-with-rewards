@@ -53,6 +53,7 @@ import * as mutations from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
     export default{
+      props: ['dbUser','dbUserID'],
       data() {
         return {
           //rewards: ['$5','$1','DQ Icecream'],
@@ -74,7 +75,7 @@ import { API, graphqlOperation } from "aws-amplify";
               const choreDetails = {
                  title: this.title,
                  desc: this.content,
-                 choreUserId: '3a376292-8f27-49a0-9c30-be4095639d3f',
+                 choreUserId: this.dbUserID,
                  choreRewardId: this.selectRewardID
                  //user: [{userName: 'jryan'}]
                  //user: {id:'3a376292-8f27-49a0-9c30-be4095639d3f'}
@@ -83,7 +84,8 @@ import { API, graphqlOperation } from "aws-amplify";
                   graphqlOperation(mutations.createChore, { input: choreDetails })
               )
                 .then (res => {
-                  this.$router.push("/");
+                  this.$store.dispatch('populatedbUser',this.dbUser);
+                  this.$router.push("/Chores");
                 })
                 .catch(err => (this.error = err.message));
               // setTimeout(function(){
