@@ -20,6 +20,7 @@
                       </v-card>
                       <v-container class="d-flex flex-row-reverse"> 
                           <UpdateChore :choreID="cwr.id"/>
+                          <v-btn @click="deleteChore(cwr.id)" color="error">Delete Chore</v-btn>
                       </v-container>
                    </v-expansion-panel-content>
                </v-expansion-panel> 
@@ -32,6 +33,8 @@
 <script>
 import AddChore from '../components/AddChore';
 import UpdateChore from '../components/UpdateChore';
+import * as mutations from "../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   components: { AddChore,UpdateChore },
@@ -68,6 +71,19 @@ export default {
       { 
          console.log('Inside panelExpanded');
          console.log(value);
+      },
+      deleteChore(choreID)
+      {
+         const targetChore = {
+            id: choreID
+         };
+         const deleteChor = API.graphql(
+             graphqlOperation(mutations.deleteChore, {input: targetChore })
+         )
+             .then(res=> {
+                  this.$store.dispatch('populatedbUser',this.dbUser);
+              })
+             .catch(err => (this.error = err.message));
       },
    },
 };

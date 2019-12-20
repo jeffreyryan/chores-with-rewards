@@ -64,10 +64,6 @@ export default {
       dbUser() {
           return this.$store.getters.dbUser;
       },
-      dbUserId(){
-          //return this.$store.getters.dbUserId;
-          return '3a376292-8f27-49a0-9c30-be4095639d3f';
-      },
   },
   methods: {
     signOut(){

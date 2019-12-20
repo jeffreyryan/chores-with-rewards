@@ -40,9 +40,38 @@
                           @change="menu1 = false"
                       ></v-date-picker>
                   </v-menu>
+                  </v-menu> 
+                       <v-menu
+                           ref="menu"
+                           v-model="menu2"
+                           :close-on-content-click="false"
+                           :return-value.sync="dates"
+                           transition="scale-transition"
+                           offset-y
+                           full-width
+                           min-width="290px"
+                       >
+                           <template v-slot:activator="{ on }">
+                                <v-combobox
+                                   v-model="dates"
+                                   multiple
+                                   chips
+                                   small-chips
+                                   label="Chore Dates"
+                                   prepend-icon="event"
+                                   readonly
+                                   v-on="on">
+                                </v-combobox>
+                           </template>
+                           <v-date-picker v-model="dates" multiple no-title scrollable>
+                               <v-spacer></v-spacer>
+                               <v-btn text color="primary" @click="menu2= false">Cancel</v-btn>
+                               <v-btn text color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
+                           </v-date-picker>
+                      </v-menu>
                   <v-spacer></v-spacer>
 
-                  <v-btn flat class="success mx-0 mt-3" :loading="updatingChore" @click="submit">Save</v-btn>
+                  <v-btn text class="success mx-0 mt-3" :loading="updatingChore" @click="submit">Save</v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -65,6 +94,9 @@ import { API, graphqlOperation } from "aws-amplify";
       data() {
         return {
           dbChore: '',
+          menu1: false,
+          menu2: false,
+          dates:[],
           selectRewardID: '',
           due: null,
           updatingChore: false,
@@ -89,12 +121,25 @@ import { API, graphqlOperation } from "aws-amplify";
               )
                 .then (res => {
                   //this.$router.push("/Chores");
-                  window.location.reload();
+                  //window.location.reload();
                 })
                 .catch(err => (this.error = err.message));
-              // setTimeout(function(){
-              //   console.log(this.title , this.content);
-              //},1)
+
+              // ------ Add chore dates ------- //
+              // ------- onlyhandling one date, and not considering existing dates!!!
+
+              const choreDateDetails = {
+                 targetDate : this.dates[0],
+                 choreDateChoreId:this.ChoreID
+              };
+              const newChoreDate = API.graphql(
+                  graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
+              )
+                .then (res => {
+                       console.log('got here');
+                       console.log(res.data.createChoreDate.id);
+                 })
+                .catch(err => (this.error = err.message));
            }
            this.updatingChore=false;
            this.dialog=false;
