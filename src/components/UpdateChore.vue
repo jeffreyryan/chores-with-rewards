@@ -130,7 +130,7 @@ import { API, graphqlOperation } from "aws-amplify";
 
               const choreDateDetails = {
                  targetDate : this.dates[0],
-                 choreDateChoreId:this.ChoreID
+                 choreDateChoreId:this.choreID
               };
               const newChoreDate = API.graphql(
                   graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })

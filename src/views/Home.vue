@@ -39,7 +39,7 @@
                  </v-flex>
                  <v-flex xs6 sm4 md2>
                      <div class="caption grey--text">Due by</div>
-                     <div>{{ cwr.nextDueDate }}</div>
+                     <div>{{ cwr.nextDueDate }}</div> 
                  </v-flex>
                  <v-flex xs2 sm4 md2>
                      <div class="right">
@@ -60,8 +60,8 @@
                       <div>{{cwr.reward && cwr.reward.name}} </div>
                   </v-flex>
                   <v-flex xs8 sm4 md2>
-                      <div class="caption grey--text">Due by</div>
-                      <div>12/31/2019</div>
+                      <div class="caption grey--text">Due by</div> 
+                      <div>{{ cwr.ChoreDates.items[0] && cwr.ChoreDates.items[0].targetDate }}</div>
                   </v-flex> 
               </v-layout>
           </v-card>
