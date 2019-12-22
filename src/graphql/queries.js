@@ -101,6 +101,7 @@ export const getUsersChoresAndRewards = `query ListUsers(
                 items{
                    id
                    targetDate
+                   completeDate
                 }
              }
           }
@@ -272,7 +273,11 @@ export const listChores = `query ListChores(
         desc
       }
       ChoreDates {
-        nextToken
+        items {
+            id
+            targetDate
+            completeDate 
+        }
       }
     }
     nextToken

@@ -19,13 +19,6 @@
                       max-width="290"
                   >
                       <template v-slot:activator="{ on }">
-                          <v-text-field
-                              :value="due"
-                              clearable
-                              label="Due Date"
-                              readonly
-                              v-on="on"
-                          ></v-text-field>
                           <v-select
                               :items="myDbRewards.items"
                               v-model="selectRewardID"
@@ -89,14 +82,22 @@ import { API, graphqlOperation } from "aws-amplify";
           API.graphql(graphqlOperation(queries.listChores,{filter: {id: {eq: this.choreID}}}))
               .then(res => { this.dbChore=res.data.listChores.items[0];
                              this.selectRewardID=res.data.listChores.items[0].reward.id;
+                             this.dbDates=res.data.listChores.items[0].ChoreDates;
+                             for (var idx = 0; idx < this.dbDates.items.length; idx++) {
+                                 console.log(this.dbDates.items[idx].targetDate); 
+                                 this.dates.push(this.dbDates.items[idx].targetDate);
+                                 this.origDates.push(this.dbDates.items[idx].targetDate);
+                             }
                })
       },
       data() {
         return {
           dbChore: '',
+          dbDates: '',
           menu1: false,
           menu2: false,
           dates:[],
+          origDates : [],
           selectRewardID: '',
           due: null,
           updatingChore: false,
@@ -128,21 +129,32 @@ import { API, graphqlOperation } from "aws-amplify";
               // ------ Add chore dates ------- //
               // ------- onlyhandling one date, and not considering existing dates!!!
 
-              const choreDateDetails = {
-                 targetDate : this.dates[0],
-                 choreDateChoreId:this.choreID
-              };
-              const newChoreDate = API.graphql(
-                  graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
-              )
-                .then (res => {
-                       console.log('got here');
-                       console.log(res.data.createChoreDate.id);
-                 })
-                .catch(err => (this.error = err.message));
-           }
+              for (var dateIndex = 0; dateIndex < this.dates.length; dateIndex++) {
+       
+                 //console.log(this.dbDates.items[dateIndex].targetDate);
+                 //console.log(this.dates[dateIndex]);
+                 //console.log(this.origDates.includes(this.dates[dateIndex]));
+                  if(!this.origDates.includes(this.dates[dateIndex])) {
+                  
+                      const choreDateDetails = {
+                         targetDate : this.dates[dateIndex],
+                         choreDateChoreId:this.choreID
+                      };
+                     //console.log(this.dates[dateIndex]);
+                      const newChoreDate = API.graphql(
+                          graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
+                      )
+                        .then (res => {
+                               console.log('got here');
+                               console.log(res.data.createChoreDate.id);
+                         })
+                        .catch(err => (this.error = err.message));
+                     }
+                 }
+              }
            this.updatingChore=false;
            this.dialog=false;
+          //Add this back!!!  window.location.reload();
            // this.$emit('choreAdded');
         }
       },
