@@ -277,6 +277,7 @@ export const listChores = `query ListChores(
             id
             targetDate
             completeDate 
+            notes
         }
       }
     }

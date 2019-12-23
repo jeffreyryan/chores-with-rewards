@@ -19,6 +19,7 @@
                           </v-card-text>
                       </v-card>
                       <v-container class="d-flex flex-row-reverse"> 
+                          <UpdateChoreDates :choreID="cwr.id"/>
                           <UpdateChore :choreID="cwr.id"/>
                           <v-btn @click="deleteChore(cwr.id)" color="error">Delete Chore</v-btn>
                       </v-container>
@@ -33,11 +34,12 @@
 <script>
 import AddChore from '../components/AddChore';
 import UpdateChore from '../components/UpdateChore';
+import UpdateChoreDates from '../components/UpdateChoreDates';
 import * as mutations from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
 export default {
-  components: { AddChore,UpdateChore },
+  components: { AddChore,UpdateChore,UpdateChoreDates },
    data(){
        return {
           username:'',
