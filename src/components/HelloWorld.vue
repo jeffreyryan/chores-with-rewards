@@ -66,6 +66,13 @@ export default {
       },
   },
   methods: {
+    signIn(){
+        Auth.signIn(this.login, this.password)
+          .then(user =>{
+            this.$store.dispatch('signIn');
+          })
+          .catch(err => console.log(err));
+    },
     signOut(){
         Auth.signOut()
           .then(data =>{

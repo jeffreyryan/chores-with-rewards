@@ -96,6 +96,13 @@ export const getUsersChoresAndRewards = `query ListUsers(
              reward {
                id
                name
+               rewardDates {
+                   items{
+                      id
+                      targetDate
+                      completeDate
+                   }
+               }
              }
              ChoreDates {
                 items{

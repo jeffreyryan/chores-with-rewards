@@ -85,7 +85,7 @@ export default {
          {chore: 'Take out the trash', reward: '$5', nextDueDate: '08/24/2019', status: 'Complete'},
          {chore: 'Clean Room', reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
          {chore: 'Give Dogs Bath', reward: '$2', nextDueDate: '08/30/2019', status: 'ChorePending'}
-      ]
+      ],
     }
   },
   computed: {
@@ -93,7 +93,36 @@ export default {
           return this.$store.getters.signedIn;
       },
       myDbChores(){
-          return this.$store.getters.choresWithRewards;
+       const dbChores=this.$store.getters.choresWithRewards;
+          if (dbChores.items) {
+          //const numOfChores = dbChores.items.length;
+          //console.log(numOfChores);
+          for (var idx = 0; idx < dbChores.items.length; idx++) {
+          //                       //console.log(this.dbDates.items[idx].targetDate);
+          //                       //this.dates.push(this.dbDates.items[idx].targetDate);
+          //                       //this.origDates.push(this.dbDates.items[idx].targetDate);
+                                 console.log('-----');
+                                 console.log(idx);
+                                 if (dbChores.items[idx].ChoreDates.items[0]) {
+                                     //const targetDate=dbChores.items[idx].ChoreDates.items[0].targetDate;
+                                     for (var dateIdx=0; dateIdx < dbChores.items[idx].ChoreDates.items.length; dateIdx++) {
+                                        dbChores.items[idx].status='Complete';
+                                        //if (dbChores.items[idx].rewardDates.items[dateIdx].completeDate == null) {
+                                         //   dbChores.items[idx].status='Reward Pending';
+                                            if (dbChores.items[idx].ChoreDates.items[dateIdx].completeDate == null) {
+                                                const targetDate=dbChores.items[idx].ChoreDates.items[dateIdx].targetDate;
+                                                console.log(targetDate);
+                                                dbChores.items[idx].NextTargetDate = targetDate;
+                                                dbChores.items[idx].status='Chore Pending';
+                                            }
+                                        //}
+                                     }
+                                     //dbChores.items[idx].NextTargetDate = targetDate;
+                                }
+                             }
+          }
+          return dbChores;
+          //return this.$store.getters.choresWithRewards;
       },
    },
    methods: {
