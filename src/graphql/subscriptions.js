@@ -238,6 +238,7 @@ export const onCreateChore = `subscription OnCreateChore {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -287,6 +288,7 @@ export const onUpdateChore = `subscription OnUpdateChore {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -336,6 +338,7 @@ export const onDeleteChore = `subscription OnDeleteChore {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -349,6 +352,7 @@ export const onCreateChoreDate = `subscription OnCreateChoreDate {
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id
@@ -379,6 +383,7 @@ export const onUpdateChoreDate = `subscription OnUpdateChoreDate {
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id
@@ -409,6 +414,7 @@ export const onDeleteChoreDate = `subscription OnDeleteChoreDate {
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id

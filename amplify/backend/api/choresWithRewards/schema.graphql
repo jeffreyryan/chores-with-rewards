@@ -28,6 +28,7 @@ type ChoreDate @model {
   targetDate : AWSDate
   completeDate : AWSDate
   completed : Boolean
+  rewardDate : AWSDate
   notes: String
   chore: Chore @connection(name: "ChoreDates")
 }

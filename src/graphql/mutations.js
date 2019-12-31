@@ -238,6 +238,7 @@ export const createChore = `mutation CreateChore($input: CreateChoreInput!) {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -287,6 +288,7 @@ export const updateChore = `mutation UpdateChore($input: UpdateChoreInput!) {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -336,6 +338,7 @@ export const deleteChore = `mutation DeleteChore($input: DeleteChoreInput!) {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -349,6 +352,7 @@ export const createChoreDate = `mutation CreateChoreDate($input: CreateChoreDate
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id
@@ -379,6 +383,7 @@ export const updateChoreDate = `mutation UpdateChoreDate($input: UpdateChoreDate
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id
@@ -409,6 +414,7 @@ export const deleteChoreDate = `mutation DeleteChoreDate($input: DeleteChoreDate
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id

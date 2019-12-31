@@ -96,19 +96,13 @@ export const getUsersChoresAndRewards = `query ListUsers(
              reward {
                id
                name
-               rewardDates {
-                   items{
-                      id
-                      targetDate
-                      completeDate
-                   }
-               }
              }
              ChoreDates {
                 items{
                    id
                    targetDate
                    completeDate
+                   rewardDate
                 }
              }
           }
@@ -140,7 +134,7 @@ export const getUsersRewards = `query ListUsers(
    }
 }
 `;
-           
+
 export const getReward = `query GetReward($id: ID!) {
   getReward(id: $id) {
     id
@@ -250,6 +244,7 @@ export const getChore = `query GetChore($id: ID!) {
         targetDate
         completeDate
         completed
+        rewardDate
         notes
       }
       nextToken
@@ -283,7 +278,8 @@ export const listChores = `query ListChores(
         items {
             id
             targetDate
-            completeDate 
+            completeDate
+            rewardDate
             notes
         }
       }
@@ -298,6 +294,7 @@ export const getChoreDate = `query GetChoreDate($id: ID!) {
     targetDate
     completeDate
     completed
+    rewardDate
     notes
     chore {
       id
@@ -333,6 +330,7 @@ export const listChoreDates = `query ListChoreDates(
       targetDate
       completeDate
       completed
+      rewardDate
       notes
       chore {
         id
