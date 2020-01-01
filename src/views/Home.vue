@@ -8,7 +8,7 @@
           <v-layout row class="mb-3">
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn small flat color="grey" @click="sortBy('chore')">
+                  <v-btn small flat color="grey" @click="sortBy('title')">
                       <v-icon left small>folder</v-icon>
                       <span class="caption text-lowercase">By chore name</span>
                   </v-btn>
@@ -22,12 +22,12 @@
                   </v-btn>
                   <span>Sort by next due date</span>
               </v-tooltip>
-              <v-btn small flat color="grey" @click="addUser">
+              <!--<v-btn small flat color="grey" @click="addUser">
                     <span class="caption text-lowercase">Add User</span>
-              </v-btn>
+              </v-btn>-->
           </v-layout>
 
-          <v-card flat v-for="cwr in choresWithRewards" :key="cwr.chore">
+       <!--   <v-card flat v-for="cwr in choresWithRewards" :key="cwr.chore">
               <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
                  <v-flex xs12 md6>
                      <div class="caption grey--text">Chore</div>
@@ -48,9 +48,9 @@
                  </v-flex>
               </v-layout>
               <v-divider></v-divider>
-          </v-card>
+          </v-card> -->
           <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
-              <v-layout row wrap :class="`pa-3 myDbChores Pending`">
+              <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
                   <v-flex xs12 md6>
                      <div class="caption grey--text">Chore</div>
                      <div>{{ cwr.title }} </div>
@@ -61,8 +61,13 @@
                   </v-flex>
                   <v-flex xs8 sm4 md2>
                       <div class="caption grey--text">Due by</div> 
-                      <div>{{ cwr.ChoreDates.items[0] && cwr.ChoreDates.items[0].targetDate }}</div>
+                      <div>{{ cwr.ChoreDates.items[0] && cwr.nextDueDate }}</div>
                   </v-flex> 
+                  <v-flex xs2 sm4 md2>
+                     <div class="right">
+                        <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}</v-chip>
+                     </div>
+                 </v-flex> 
               </v-layout>
           </v-card>
        </v-container>
@@ -103,21 +108,22 @@ export default {
           //                       //this.origDates.push(this.dbDates.items[idx].targetDate);
                                  console.log('-----');
                                  console.log(idx);
+                                 dbChores.items[idx].status='No-Date';
                                  if (dbChores.items[idx].ChoreDates.items[0]) {
                                      //const targetDate=dbChores.items[idx].ChoreDates.items[0].targetDate;
                                      for (var dateIdx=0; dateIdx < dbChores.items[idx].ChoreDates.items.length; dateIdx++) {
                                         dbChores.items[idx].status='Complete';
-                                        //if (dbChores.items[idx].rewardDates.items[dateIdx].completeDate == null) {
-                                         //   dbChores.items[idx].status='Reward Pending';
+                                        if (dbChores.items[idx].ChoreDates.items[dateIdx].rewardDate == null) {
+                                            dbChores.items[idx].status='RewardPending';
                                             if (dbChores.items[idx].ChoreDates.items[dateIdx].completeDate == null) {
                                                 const targetDate=dbChores.items[idx].ChoreDates.items[dateIdx].targetDate;
                                                 console.log(targetDate);
-                                                dbChores.items[idx].NextTargetDate = targetDate;
-                                                dbChores.items[idx].status='Chore Pending';
+                                                dbChores.items[idx].nextDueDate = targetDate;
+                                                dbChores.items[idx].status='ChorePending';
                                             }
-                                        //}
+                                        }
                                      }
-                                     //dbChores.items[idx].NextTargetDate = targetDate;
+                                     //dbChores.items[idx].nextTargetDate = targetDate;
                                 }
                              }
           }
@@ -127,7 +133,8 @@ export default {
    },
    methods: {
      sortBy(prop){
-         this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+         //this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+         this.myDbChores.items.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
      },
      addUser(){
          alert('in addUser');
@@ -149,6 +156,10 @@ export default {
 
 <style>
 
+.choresWithRewards.No-Date {
+  border-left: 4px solid orange;
+}
+
 .choresWithRewards.Complete {
   border-left: 4px solid green;
 }
@@ -158,6 +169,10 @@ export default {
 }
 .choresWithRewards.ChorePending {
   border-left: 4px solid tomato;
+}
+
+.v-chip.No-Date {
+  background: orange !important;
 }
 
 .v-chip.Complete {
