@@ -27,13 +27,33 @@
                                        <template v-slot:activator="{ on }">
                                            <v-text-field
                                              v-model="cwr.completeDate"
-                                             label="Picker without buttons"
+                                             label="Completion Date"
                                              prepend-icon="event"
                                              readonly
                                              v-on="on"
                                            ></v-text-field>
                                        </template>
                                        <v-date-picker v-model="cwr.completeDate" @input="menu = false">
+                                       </v-date-picker>
+                                   </v-menu>
+                                   <v-menu
+                                       v-model="menu2"
+                                       :close-on-content-click="false"
+                                       :nudge-right="40"
+                                       transition="scale-transition"
+                                       offset-y
+                                       min-width="290px"
+                                   >
+                                       <template v-slot:activator="{ on }">
+                                           <v-text-field
+                                             v-model="cwr.rewardDate"
+                                             label="Reward Date"
+                                             prepend-icon="event"
+                                             readonly
+                                             v-on="on"
+                                           ></v-text-field>
+                                       </template>
+                                       <v-date-picker v-model="cwr.rewardDate" @input="menu2 = false">
                                        </v-date-picker>
                                    </v-menu>
                                    <v-btn text class="success mx-0 mt-3" :loading="updatingChore" @click="updateChoreDate(cwr.id)">Save</v-btn>
@@ -64,6 +84,7 @@ import { API, graphqlOperation } from "aws-amplify";
         return {
           dbChoreDates: '',
           menu : false,
+          menu2 : false,
         }
       },
       methods: {
@@ -73,7 +94,8 @@ import { API, graphqlOperation } from "aws-amplify";
             const choreDateDetails = {
                 id:this.dbChoreDates.items[index].id,
                 notes: this.dbChoreDates.items[index].notes,
-                completeDate : this.dbChoreDates.items[index].completeDate
+                completeDate : this.dbChoreDates.items[index].completeDate,
+                rewardDate : this.dbChoreDates.items[index].rewardDate
             }
             const updateChoreDt = API.graphql(
                   graphqlOperation(mutations.updateChoreDate, {input: choreDateDetails })
