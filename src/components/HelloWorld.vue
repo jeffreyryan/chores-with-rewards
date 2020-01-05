@@ -1,12 +1,12 @@
 <template>
   <v-layout align-center justify-center>
   <v-flex xs12 sm8 md4 align-center justify-center>
-     <v-img
+     <!-- <v-img
           :src="require('../assets/cwr_logo_2.svg')"
           class="my-3"
           contain
           height="400"
-        ></v-img> 
+        ></v-img> -->
      <v-card v-if="!signedIn" class="mt-5">
         <v-toolbar>
            <v-toolbar-title>Login</v-toolbar-title>

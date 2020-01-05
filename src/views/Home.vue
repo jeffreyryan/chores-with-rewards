@@ -51,25 +51,38 @@
           </v-card> -->
           <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
               <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
-                  <v-flex xs12 md6>
+                  <v-flex xs12 md4>
                      <div class="caption grey--text">Chore</div>
                      <div>{{ cwr.title }} </div>
                   </v-flex>
-                  <v-flex xs6 sm4 md2>
+                  <v-flex xs6 sm3 md2>
                       <div class="caption grey--text">Reward</div>
                       <div>{{cwr.reward && cwr.reward.name}} </div>
                   </v-flex>
-                  <v-flex xs8 sm4 md2>
+                  <v-flex xs8 sm3 md2>
                       <div class="caption grey--text">Due by</div> 
                       <div>{{ cwr.ChoreDates.items[0] && cwr.nextDueDate }}</div>
                   </v-flex> 
-                  <v-flex xs2 sm4 md2>
+                  <v-flex xs2 sm3 md2>
                      <div class="right">
-                        <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}</v-chip>
+                        <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}
+                            <!-- <UpdateChoreDates :choreID="cwr.id" /> -->
+                        </v-chip>
                      </div>
                  </v-flex> 
+                 <v-flex xs2 sm3 md2>
+                     <div class="left ">
+                        <UpdateChoreDates :choreID="cwr.id" />
+                     </div>
+                 </v-flex>
               </v-layout>
           </v-card>
+          <v-img
+          :src="require('../assets/cwr_logo_2.svg')"
+          class="my-3"
+          contain
+          height="400"
+        ></v-img>
        </v-container>
     </div>
 
@@ -77,12 +90,13 @@
 
 <script>
 import HelloWorld from '../components/HelloWorld';
+import UpdateChoreDates from '../components/UpdateChoreDates';
 import * as mutations from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   components: {
-    HelloWorld,
+    HelloWorld,UpdateChoreDates
   },
   data(){
     return {
@@ -100,17 +114,9 @@ export default {
       myDbChores(){
        const dbChores=this.$store.getters.choresWithRewards;
           if (dbChores.items) {
-          //const numOfChores = dbChores.items.length;
-          //console.log(numOfChores);
           for (var idx = 0; idx < dbChores.items.length; idx++) {
-          //                       //console.log(this.dbDates.items[idx].targetDate);
-          //                       //this.dates.push(this.dbDates.items[idx].targetDate);
-          //                       //this.origDates.push(this.dbDates.items[idx].targetDate);
-                                 console.log('-----');
-                                 console.log(idx);
                                  dbChores.items[idx].status='No-Date';
                                  if (dbChores.items[idx].ChoreDates.items[0]) {
-                                     //const targetDate=dbChores.items[idx].ChoreDates.items[0].targetDate;
                                      for (var dateIdx=0; dateIdx < dbChores.items[idx].ChoreDates.items.length; dateIdx++) {
                                         dbChores.items[idx].status='Complete';
                                         if (dbChores.items[idx].ChoreDates.items[dateIdx].rewardDate == null) {
@@ -123,12 +129,10 @@ export default {
                                             }
                                         }
                                      }
-                                     //dbChores.items[idx].nextTargetDate = targetDate;
                                 }
                              }
           }
           return dbChores;
-          //return this.$store.getters.choresWithRewards;
       },
    },
    methods: {

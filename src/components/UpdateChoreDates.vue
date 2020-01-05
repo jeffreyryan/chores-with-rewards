@@ -1,7 +1,15 @@
 <template>
     <v-dialog max-width="600px" v-model="dialog">
         <template v-slot:activator="{ on }">
-            <v-btn text class="success" v-on="on" >Update Chore Dates</v-btn>
+            <div v-on="on">
+                <v-btn v-if="label" text class="success mx-1"  >
+                      <v-icon left small>edit</v-icon>
+                      <span v-if="label" >Update Chore Dates</span>
+                </v-btn>  
+                <v-btn v-if="!label" text class="mx-1" icon small >
+                      <v-icon small>edit</v-icon>
+                </v-btn> 
+            </div>
         </template>
         <v-card>
             <v-card-title>
@@ -72,7 +80,16 @@ import * as mutations from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
     export default{
-      props: ['choreID'],
+      props: {
+          choreID: {
+              type: String,
+          },
+          label : {
+              type: Boolean,
+              default: false
+          },
+      },
+      //props: ['choreID'],
       created: function() {
           //API.graphql(graphqlOperation(queries.listChore,{filter: {choreDateChoreId: {eq: this.choreID}}}))
           API.graphql(graphqlOperation(queries.listChores,{filter: {id: {eq: this.choreID}}}))

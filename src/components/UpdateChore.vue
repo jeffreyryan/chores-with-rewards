@@ -1,7 +1,7 @@
 <template>
     <v-dialog max-width="600px" v-model="dialog">
         <template v-slot:activator="{ on }">
-            <v-btn text class="success" v-on="on" >Update Chore</v-btn>
+            <v-btn text class="success mx-1" v-on="on" >Update Chore</v-btn>
         </template>
         <v-card>
             <v-card-title>

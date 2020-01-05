@@ -19,9 +19,10 @@
                           </v-card-text>
                       </v-card>
                       <v-container class="d-flex flex-row-reverse"> 
-                          <UpdateChoreDates :choreID="cwr.id"/>
-                          <UpdateChore :choreID="cwr.id"/>
-                          <v-btn @click="deleteChore(cwr.id)" color="error">Delete Chore</v-btn>
+                          <UpdateChoreDates :choreID="cwr.id" label/> 
+                          <!-- <UpdateChoreDates :choreID="cwr.id" /> -->
+                          <UpdateChore :choreID="cwr.id" />
+                          <v-btn class="mx-1" @click="deleteChore(cwr.id)" color="error">Delete Chore</v-btn>
                       </v-container>
                    </v-expansion-panel-content>
                </v-expansion-panel> 
@@ -43,9 +44,11 @@ export default {
    data(){
        return {
           username:'',
+          choreDateActivator:'btn',
        }
    },
    //created(){
+     //choreDateActivator="btn";
      //username= this.$store.getters.dbUser;
      //console.log(username);
      //this.$store.dispatch('populatedbUser',dbUser);
@@ -67,6 +70,9 @@ export default {
       dbUserID(){
           return this.$store.getters.dbUserID;
       },
+      //choreDateActivator(){
+      //    return "btn"
+      //},
    },
    methods: {
       panelExpanded(value)
