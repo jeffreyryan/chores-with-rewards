@@ -10,16 +10,17 @@
                >
                   <v-expansion-panel-header>{{ cwr.title }}</v-expansion-panel-header>
                   <v-expansion-panel-content @click="panelExpanded(cwr.reward.name)" >
-                      <v-card>
+                      <div>Description : {{ cwr.desc }}</div>
+                      <div>Reward : {{ cwr.reward && cwr.reward.name }}</div>
+                      <!-- <v-card>
                           <v-card-text class="px-4 grey--text">
-                              <div class="font-weight-bold">due by NEED DATES</div>
-                              <div>info</div>
+                              <div class="font-weight-bold">due by NEED DATES</div> 
+                              <div class="font-weight-bold">Description : {{ cwr.desc }}</div>
                               <div class="font-weight-bold">Reward : {{ cwr.reward && cwr.reward.name }}</div>
-                              <!-- <UpdateChore :choreID="cwr.id"/> -->
                           </v-card-text>
-                      </v-card>
+                      </v-card> -->
                       <v-container class="d-flex flex-row-reverse"> 
-                          <UpdateChoreDates :choreID="cwr.id" label/> 
+                          <!-- <UpdateChoreDates :choreID="cwr.id" label/> -->
                           <!-- <UpdateChoreDates :choreID="cwr.id" /> -->
                           <UpdateChore :choreID="cwr.id" />
                           <v-btn class="mx-1" @click="deleteChore(cwr.id)" color="error">Delete Chore</v-btn>

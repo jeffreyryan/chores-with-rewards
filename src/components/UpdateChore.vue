@@ -10,7 +10,7 @@
             <v-card-text>
                 <v-form class="px-3" ref="choreForm">
                   <v-text-field label="Title" v-model="dbChore.title" prepend-icon="folder" :rules="inputRules"></v-text-field>
-                  <v-textarea label="Information" v-model="dbChore.desc" prepend-icon="edit"></v-textarea>
+                  <v-textarea label="Description" v-model="dbChore.desc" prepend-icon="edit"></v-textarea>
                   
                   <v-menu
                       v-model="menu1"
@@ -25,6 +25,7 @@
                               label="Reward"
                               item-value="id"
                               item-text="name"
+                              prepend-icon="done"
                               @change='updateReward'
                           ></v-select>
                       </template>

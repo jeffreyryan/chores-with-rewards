@@ -3,7 +3,6 @@
         <template v-slot:activator="{ on }">
             <div v-on="on">
                 <v-btn v-if="label" text class="success mx-1"  >
-                      <v-icon left small>edit</v-icon>
                       <span v-if="label" >Update Chore Dates</span>
                 </v-btn>  
                 <v-btn v-if="!label" text class="mx-1" icon small >
