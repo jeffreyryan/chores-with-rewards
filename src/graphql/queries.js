@@ -93,6 +93,7 @@ export const getUsersChoresAndRewards = `query ListUsers(
          items{
              id
              title
+             desc
              reward {
                id
                name
