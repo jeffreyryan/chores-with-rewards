@@ -49,7 +49,7 @@
               </v-layout>
               <v-divider></v-divider>
           </v-card> -->
-          <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
+           <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
               <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
                   <v-flex xs12 md4>
                      <div class="caption grey--text">Chore</div>
@@ -61,12 +61,12 @@
                   </v-flex>
                   <v-flex xs8 sm3 md2>
                       <div class="caption grey--text">Due by</div> 
-                      <div>{{ cwr.ChoreDates.items[0] && cwr.nextDueDate }}</div>
+                      <!-- <div>{{ cwr.ChoreDates.items[0] && cwr.nextDueDate }}</div> -->
+                      <div>{{cwr.nextDueDate }}</div>
                   </v-flex> 
                   <v-flex xs2 sm3 md2>
                      <div class="right">
                         <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}
-                            <!-- <UpdateChoreDates :choreID="cwr.id" /> -->
                         </v-chip>
                      </div>
                  </v-flex> 
@@ -74,14 +74,14 @@
                      <div class="left ">
                         <UpdateChoreDates :choreID="cwr.id" />
                      </div>
-                 </v-flex>
+                 </v-flex> 
               </v-layout>
-          </v-card>
+          </v-card> 
           <v-img
           :src="require('../assets/cwr_logo_2.svg')"
           class="my-3"
           contain
-          height="400"
+          height="300"
         ></v-img>
        </v-container>
     </div>
@@ -112,6 +112,8 @@ export default {
           return this.$store.getters.signedIn;
       },
       myDbChores(){
+       const defaultCWR = {items: [{title: 'Sample Chore', reward:{name: 'Sample Reward'}, nextDueDate: 'Sample Date', status: 'Complete'}]};
+ 
        const dbChores=this.$store.getters.choresWithRewards;
           if (dbChores.items) {
           for (var idx = 0; idx < dbChores.items.length; idx++) {
@@ -131,8 +133,12 @@ export default {
                                      }
                                 }
                              }
-          }
           return dbChores;
+          } else {
+            console.log('in else')
+            return defaultCWR;
+          }
+          //return dbChores;
       },
    },
    methods: {
