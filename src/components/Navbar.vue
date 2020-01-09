@@ -6,11 +6,12 @@
            </v-btn>
            <v-layout column align-center>
               <v-flex class="mt-5">
-                  <v-avatar size="100">
+                  <!-- <v-avatar size="100">
                       <img src="/avatar-1.png" alt="">
-                  </v-avatar>
+                  </v-avatar> -->
+                  <v-icon x-large>mdi-account-circle</v-icon>
                   <p class="white--text subheading mt-1">
-                       Papa Joe
+                       {{this.user.username}}
                   </p>
               </v-flex>
               <v-flex class="mt-4 mb-3">
@@ -55,6 +56,7 @@ export default {
   components: { },
   data() {
     return {
+      user:'',
       drawer: false,
       snackbar: false,
       links: [
@@ -81,6 +83,9 @@ export default {
       signedIn(){
           return this.$store.getters.signedIn;
       },
+      dbUser(){
+          return this.$store.getters.dbUser;
+      },
       
   },
   methods: {
@@ -96,10 +101,11 @@ export default {
       async findUser(){
         try {
           console.log('IN FINDUSER');
-          const user = await Auth.currentAuthenticatedUser();
+          //const user = await Auth.currentAuthenticatedUser();
+          this.user = await Auth.currentAuthenticatedUser();
           this.$store.dispatch('signIn');
-          this.$store.dispatch('populatedbUser',user.username);
-          this.$store.dispatch('populateRewards',user.username);
+          this.$store.dispatch('populatedbUser',this.user.username);
+          this.$store.dispatch('populateRewards',this.user.username);
         } catch (err){
            this.$store.dispatch('signOut');
           }
