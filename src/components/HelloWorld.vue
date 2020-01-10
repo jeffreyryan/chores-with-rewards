@@ -70,6 +70,8 @@ export default {
         Auth.signIn(this.login, this.password)
           .then(user =>{
             this.$store.dispatch('signIn');
+            this.$store.dispatch('populatedbUser',this.dbUser);
+            window.location.reload();
           })
           .catch(err => console.log(err));
     },

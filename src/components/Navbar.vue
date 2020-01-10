@@ -93,7 +93,12 @@ export default {
         Auth.signOut()
           .then(data =>{
             this.$store.state.signedIn = !!data;
+            /////// probably not working //////////////
+            this.$store.state.dbUser = !!data;
+            this.$store.state.rewards = !!data;
+            this.$store.state.choresWithRewards = !!data;
             this.drawer = !this.drawer;
+            window.location.reload();
             this.$router.push("/");
           } )
           .catch(err => console.log(err));
