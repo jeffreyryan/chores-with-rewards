@@ -2,6 +2,9 @@
    <div class="chores">
        <h1>Chores</h1>
        <v-container class="my-5">
+          <v-card v-if="!myDbChores.items" class="py-28">
+                <v-card-text class="py-16">No Chores yet. Add one below.</v-card-text>
+          </v-card>
            <v-expansion-panels>
                <v-expansion-panel
                   v-for="cwr in myDbChores.items"
