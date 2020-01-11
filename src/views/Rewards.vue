@@ -2,21 +2,10 @@
    <div class="Rewards">
        <h1>Rewards</h1>
        <v-container class="my-5">
+           <v-card v-if="!myDbRewards.items" class="py-28">
+                <v-card-text class="py-16">No Rewards yet. Add one below.</v-card-text>
+           </v-card>
            <v-expansion-panels>
-               <!-- <v-expansion-panel
-                   v-for="cwr in myRewards"
-                   :key="reward"
-               >
-                   <v-expansion-panel-header>{{ cwr.reward }}</v-expansion-panel-header>
-                   <v-expansion-panel-content>
-                       <v-card>
-                          <v-card-text class="px-4 grey--text">
-                             <div class="font-weight-bold">due by {{ cwr.nextDueDate }}</div>
-                             <div>info</div>
-                          </v-card-text>
-                       </v-card>
-                   </v-expansion-panel-content>
-               </v-expansion-panel> -->
                <v-expansion-panel
                   v-for="rwd in myDbRewards.items"
                     :key="rwd.name"
@@ -51,11 +40,6 @@ export default {
     }
   },
    computed: {
-   //   myRewards() {
-   //      return this.choresWithRewards.filter(chore => {
-   //         return chore.person === 'jayden'
-   //      })
-   //   },
      myDbRewards() {
          return this.$store.getters.rewards;
      },

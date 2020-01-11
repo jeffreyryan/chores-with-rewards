@@ -112,7 +112,8 @@ export default {
           return this.$store.getters.signedIn;
       },
       myDbChores(){
-       const defaultCWR = {items: [{title: 'Sample Chore', reward:{name: 'Sample Reward'}, nextDueDate: 'Sample Date', status: 'Complete'}]};
+       const defaultCWR = {items: [{title: 'Sample Chore: Add Chore', reward:{name: ''}, nextDueDate: 'Today', status: 'ChorePending'},
+                                   {title: 'Sample Chore: Add Reward',reward:{name: ''},nextDueDate:'Today', status:'ChorePending'}]};
  
        const dbChores=this.$store.getters.choresWithRewards;
           if (dbChores.items) {
