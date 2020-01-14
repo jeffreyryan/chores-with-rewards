@@ -1,6 +1,6 @@
 <template>
    <div class="chores">
-       <h1>Chores</h1>
+       <h1 align="center">Chores</h1>
        <v-container class="my-5">
           <v-card v-if="!myDbChores.items" class="py-28">
                 <v-card-text class="py-16">No Chores yet. Add one below.</v-card-text>
@@ -31,8 +31,10 @@
                    </v-expansion-panel-content>
                </v-expansion-panel> 
            </v-expansion-panels>
+           <div class="my-5" align="right">
+               <AddChore :dbUser="this.dbUser" :dbUserID="this.dbUserID"/>
+           </div>
        </v-container>
-       <AddChore :dbUser="this.dbUser" :dbUserID="this.dbUserID"/>
    </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
    <div class="Rewards">
-       <h1>Rewards</h1>
+       <h1 align="center">Rewards</h1>
        <v-container class="my-5">
            <v-card v-if="!myDbRewards.items" class="py-28">
                 <v-card-text class="py-16">No Rewards yet. Add one below.</v-card-text>
@@ -18,8 +18,10 @@
                   </v-expansion-panel-content>
                </v-expansion-panel>
            </v-expansion-panels>
+           <div class="my-5" align="right">
+               <AddReward :dbUser="this.dbUser" :dbUserID="this.dbUserID" />
+           </div>
        </v-container>
-       <AddReward :dbUser="this.dbUser" :dbUserID="this.dbUserID" />
    </div>
 </template>
 
