@@ -122,8 +122,8 @@ import { API, graphqlOperation } from "aws-amplify";
                   graphqlOperation(mutations.updateChore, { input: choreDetails })
               )
                 .then (res => {
-                  //this.$router.push("/Chores");
-                  //window.location.reload();
+                  this.$router.push("/Chores");
+                  window.location.reload();
                 })
                 .catch(err => (this.error = err.message));
 
@@ -146,8 +146,8 @@ import { API, graphqlOperation } from "aws-amplify";
                           graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
                       )
                         .then (res => {
-                               console.log('got here');
-                               console.log(res.data.createChoreDate.id);
+                              this.$router.push("/Chores");
+                              window.location.reload();
                          })
                         .catch(err => (this.error = err.message));
                      }

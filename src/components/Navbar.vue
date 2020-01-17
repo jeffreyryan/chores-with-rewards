@@ -98,7 +98,7 @@ export default {
             this.$store.state.rewards = !!data;
             this.$store.state.choresWithRewards = !!data;
             this.drawer = !this.drawer;
-            window.location.reload();
+            //window.location.reload();
             this.$router.push("/");
           } )
           .catch(err => console.log(err));

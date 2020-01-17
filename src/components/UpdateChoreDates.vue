@@ -117,7 +117,8 @@ import { API, graphqlOperation } from "aws-amplify";
                   graphqlOperation(mutations.updateChoreDate, {input: choreDateDetails })
             )
                .then (res => {
-                      console.log('success');
+                      this.$router.push("/Home");
+                      window.location.reload();
                })
                .catch(err => (this.error = err.message));
          },

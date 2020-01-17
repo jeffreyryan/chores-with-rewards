@@ -1,9 +1,13 @@
 <template>
 
   <div>
-    <HelloWorld /> 
-
-    <v-container class="my-5" v-if="signedIn">
+    <HelloWorld />
+    <v-container v-if="signedIn && haveChoreData && !myDbChores.items" >
+         <v-card class="py-28">
+                <v-card-text class="py-16">No Chores yet. Add one below.</v-card-text>
+         </v-card>
+    </v-container>
+    <v-container class="my-5" v-if="signedIn && myDbChores.items">
 
           <v-layout row class="mb-3">
               <v-tooltip top>
@@ -105,6 +109,7 @@ export default {
          {chore: 'Clean Room', reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
          {chore: 'Give Dogs Bath', reward: '$2', nextDueDate: '08/30/2019', status: 'ChorePending'}
       ],
+    haveChoreData : false,
     }
   },
   computed: {
@@ -112,9 +117,6 @@ export default {
           return this.$store.getters.signedIn;
       },
       myDbChores(){
-       const defaultCWR = {items: [{title: 'Sample Chore: Add Chore', reward:{name: ''}, nextDueDate: 'Today', status: 'ChorePending'},
-                                   {title: 'Sample Chore: Add Reward',reward:{name: ''},nextDueDate:'Today', status:'ChorePending'}]};
- 
        const dbChores=this.$store.getters.choresWithRewards;
           if (dbChores.items) {
           for (var idx = 0; idx < dbChores.items.length; idx++) {
@@ -134,12 +136,13 @@ export default {
                                      }
                                 }
                              }
-          return dbChores;
           } else {
-            console.log('in else')
-            return defaultCWR;
+           // dbChores = {items: [{title: 'Sample Chore: Add Chore', reward:{name: ''}, nextDueDate: 'Today', status: 'ChorePending'},
+           //                        {title: 'Sample Chore: Add Reward',reward:{name: ''},nextDueDate:'Today', status:'ChorePending'}]};
+
           }
-          //return dbChores;
+          if (this.signedIn==true) { this.haveChoreData = true; }
+          return dbChores;
       },
    },
    methods: {
