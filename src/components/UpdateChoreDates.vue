@@ -14,9 +14,9 @@
             <v-card-title>
                 <h2>Update Dates</h2>
                 <v-container class="my-5">
-                    <v-expansion-panels>
+                    <v-expansion-panels v-if="dbChoreDates.items">
                         <v-expansion-panel
-                           v-for="cwr in dbChoreDates.items"
+                           v-for="cwr in filteredChoreDates"
                              :key="cwr.id"
                           @click="panelExpanded(cwr.id)"
                         >
@@ -64,9 +64,10 @@
                                        </v-date-picker>
                                    </v-menu>
                                    <v-btn text class="success mx-0 mt-3" :loading="updatingChore" @click="updateChoreDate(cwr.id)">Save</v-btn>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                    </v-expansion-panels>
+                            </v-expansion-panel-content> 
+                        </v-expansion-panel> 
+                    </v-expansion-panels> 
+
                 </v-container>
             </v-card-title>
         </v-card>
@@ -98,9 +99,10 @@ import { API, graphqlOperation } from "aws-amplify";
       },
       data() {
         return {
-          dbChoreDates: '',
+          dbChoreDates: 'hello',
           menu : false,
           menu2 : false,
+          numbers : [1,2,3]
         }
       },
       methods: {
@@ -124,6 +126,22 @@ import { API, graphqlOperation } from "aws-amplify";
          },
       },
       computed: {
+          filteredChoreDates() {
+             //var filteredChoreDates = this.dbChoreDates.items;
+             //for (var dateIdx=0; dateIdx < filteredChoreDates.length; dateIdx++) {
+             //    if (filteredChoreDates[dateIdx].rewardDate == !null) {
+             //       filteredChoreDates.splice(dateIdx);
+             //    }
+             //}
+             //return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
+             console.log('Why isnt dbChoreDates populated?');
+             console.log(this.dbChoreDates);
+             console.log(this.dbChoreDates.items[0].completeDate);
+             var filteredChoreDates = this.dbChoreDates.items.filter(function (numbir) {
+                  return !numbir.rewardDate
+               }) 
+             return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
+          }
       }
     }
 </script>
