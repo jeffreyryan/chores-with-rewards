@@ -100,9 +100,8 @@ import { API, graphqlOperation } from "aws-amplify";
       data() {
         return {
           dbChoreDates: 'hello',
-          menu : false,
-          menu2 : false,
-          numbers : [1,2,3]
+          //menu : false,
+          //menu2 : false,
         }
       },
       methods: {
@@ -127,19 +126,10 @@ import { API, graphqlOperation } from "aws-amplify";
       },
       computed: {
           filteredChoreDates() {
-             //var filteredChoreDates = this.dbChoreDates.items;
-             //for (var dateIdx=0; dateIdx < filteredChoreDates.length; dateIdx++) {
-             //    if (filteredChoreDates[dateIdx].rewardDate == !null) {
-             //       filteredChoreDates.splice(dateIdx);
-             //    }
-             //}
-             //return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
-             console.log('Why isnt dbChoreDates populated?');
-             console.log(this.dbChoreDates);
-             console.log(this.dbChoreDates.items[0].completeDate);
-             var filteredChoreDates = this.dbChoreDates.items.filter(function (numbir) {
-                  return !numbir.rewardDate
-               }) 
+             //var filteredChoreDates = this.dbChoreDates.items.filter(function (numbir) {
+             //     return !numbir.rewardDate
+             //  }) 
+             var filteredChoreDates = this.dbChoreDates.items
              return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
           }
       }
