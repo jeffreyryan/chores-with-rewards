@@ -5,8 +5,12 @@
     <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
     <v-container v-if="signedIn && haveChoreData && !myDbChores.items" >
          <v-card class="py-28">
-                <v-card-text class="py-16">No Chores yet. Add one below.</v-card-text>
+                <v-card-title>
+                        <h2>Welcome to Chores With Rewards!</h2>
+                </v-card-title>
+                <v-card-text class="py-16">To get started, Go to the Chores page or click the button below.</v-card-text>
          </v-card>
+         <v-btn class="my-5" align="right" to="/Chores">Manage Chores</v-btn>
     </v-container>
     <v-container class="my-5" v-if="signedIn && myDbChores.items">
 
