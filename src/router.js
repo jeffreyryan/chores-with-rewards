@@ -14,7 +14,7 @@ export default new Router({
       path: "/",
       name: "crib",
       component: () =>
-         import(/* webpackChunkName: "home" */ "./views/Home.vue")
+         import(/* webpackChunkName: "home" */ "./views/Login.vue")
     },
     {
       path: "/home",

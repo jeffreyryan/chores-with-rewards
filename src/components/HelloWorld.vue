@@ -1,19 +1,12 @@
 <template>
   <v-layout align-center justify-center>
   <v-flex xs12 sm8 md4 align-center justify-center>
-     <!-- <v-img
-          :src="require('../assets/cwr_logo_2.svg')"
-          class="my-3"
-          contain
-          height="400"
-        ></v-img> -->
      <v-card v-if="!signedIn" class="mt-5">
         <v-toolbar>
            <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
         <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
         <v-card-text>
-            <!-- <v-form class="px-3" ref="choreForm"> -->
                  <input v-model="login" type="text" name="" placeholder="Login"><br>
                  <input v-model="password" type="password" name="" placeholder="Password"><br>
                  <v-layout row class="mb-3">
@@ -24,14 +17,8 @@
                        <router-link to="/SignUp">Sign Up</router-link>
                      </v-flex>
                  </v-layout>
-            <!-- </v-form> -->
         </v-card-text>
      </v-card>
-     <!-- <div v-if="signedIn">
-         <v-btn @click="addUser">Add User</v-btn> 
-         <v-btn @click="populateChoresWithRewards">Get Chores with Rewards</v-btn> 
-     </div>
-     <div>{{ signedIn }}</div> -->
   </v-flex>
   </v-layout>
 </template>
@@ -39,9 +26,6 @@
 <script>
 import { Auth } from 'aws-amplify'
 import { AmplifyEventBus } from 'aws-amplify-vue';
-//import * as mutations from "../graphql/mutations";
-//import * as queries from "../graphql/mutations";
-//import { API, graphqlOperation } from "aws-amplify";
 
 export default {
   name: 'HelloWorld',

@@ -1,7 +1,8 @@
 <template>
 
   <div>
-    <HelloWorld />
+    <!-- <HelloWorld /> -->
+    <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
     <v-container v-if="signedIn && haveChoreData && !myDbChores.items" >
          <v-card class="py-28">
                 <v-card-text class="py-16">No Chores yet. Add one below.</v-card-text>
@@ -104,6 +105,7 @@ export default {
   },
   data(){
     return {
+      apiRequest: false,
       choresWithRewards: [
          {chore: 'Take out the trash', reward: '$5', nextDueDate: '08/24/2019', status: 'Complete'},
          {chore: 'Clean Room', reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
@@ -116,21 +118,46 @@ export default {
       signedIn(){
           return this.$store.getters.signedIn;
       },
+      //myFilteredChores(){
+      //const filteredChores=this.$store.getters.choresWithRewards;
+      //    if (filteredChores.items) {
+      //    for (var idx = 0; idx < filteredChores.items.length; idx++) {
+      //                           filteredChores.items[idx].status='No-Date';
+      //                           filteredChores.items[idx].ChoreDates.items = filteredChores.items[idx].ChoreDates.items.filter(function (numbir) {
+      //                                                         return !numbir.rewardDate
+      //                                                    }); 
+      //        }
+      //    }
+      //return filteredChores;
+      //},
       myDbChores(){
+          this.apiRequest=true;
        const dbChores=this.$store.getters.choresWithRewards;
           if (dbChores.items) {
           for (var idx = 0; idx < dbChores.items.length; idx++) {
                                  dbChores.items[idx].status='No-Date';
+                                 const filteredChoreDates = dbChores.items[idx].ChoreDates.items
+                                 //var filteredChoreDates = dbChores.items[idx].ChoreDates.items.filter(function (numbir) {
+                                 //                              return !numbir.rewardDate
+                                 //                         });
+                                 //console.log('where is filteredChoreDates?');
+                                 //console.log(filteredChoreDates.items[0].rewardDate);
+                                 //filteredChoreDates =  filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1);
                                  if (dbChores.items[idx].ChoreDates.items[0]) {
+                                 //if (filteredChoreDates.items[0]) {
                                      for (var dateIdx=0; dateIdx < dbChores.items[idx].ChoreDates.items.length; dateIdx++) {
+                                     //for (var dateIdx=0; dateIdx < filteredChoreDates.items.length; dateIdx++) {
                                         dbChores.items[idx].status='Complete';
                                         if (dbChores.items[idx].ChoreDates.items[dateIdx].rewardDate == null) {
+                                     //   if (filteredChoreDates.items[dateIdx].rewardDate == null) {
                                             dbChores.items[idx].status='RewardPending';
                                             if (dbChores.items[idx].ChoreDates.items[dateIdx].completeDate == null) {
+                                     //       if (filteredChoreDates.items[dateIdx].completeDAte == null) {
                                                 const targetDate=dbChores.items[idx].ChoreDates.items[dateIdx].targetDate;
-                                                console.log(targetDate);
-                                                dbChores.items[idx].nextDueDate = targetDate;
-                                                dbChores.items[idx].status='ChorePending';
+                                     //             const targetDAte=filteredChoreDates.items[dateIdx].targetDate;
+                                     //           console.log(targetDate);
+                                                  dbChores.items[idx].nextDueDate = targetDate;
+                                                  dbChores.items[idx].status='ChorePending';
                                             }
                                         }
                                      }
@@ -142,6 +169,7 @@ export default {
 
           }
           if (this.signedIn==true) { this.haveChoreData = true; }
+          this.apiRequest=false;
           return dbChores;
       },
    },
