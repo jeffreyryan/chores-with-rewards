@@ -95,6 +95,9 @@ import { API, graphqlOperation } from "aws-amplify";
           API.graphql(graphqlOperation(queries.listChores,{filter: {id: {eq: this.choreID}}}))
               .then(res => { this.dbChoreDates=res.data.listChores.items[0].ChoreDates;
                              //this.selectRewardID=res.data.listChores.items[0].reward.id;
+                             for (var idx = 0; idx < this.dbChoreDates.items.length; idx++) {
+                                  this.dbChoreDates.items[idx].origRewardDate=this.dbChoreDates.items[idx].rewardDate;
+                             }
                })
       },
       data() {
@@ -126,11 +129,10 @@ import { API, graphqlOperation } from "aws-amplify";
       },
       computed: {
           filteredChoreDates() {
-             //var filteredChoreDates = this.dbChoreDates.items.filter(function (numbir) {
-             //     return !numbir.rewardDate
-             //  }) 
-             var filteredChoreDates = this.dbChoreDates.items
-             return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
+             // var filteredChoreDates = this.dbChoreDates.items
+             var filteredChoreDates = this.dbChoreDates.items.filter(item => item.origRewardDate === null);
+             return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1);
+             //return filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1)
           }
       }
     }

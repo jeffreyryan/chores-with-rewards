@@ -3,7 +3,7 @@
   <div>
     <!-- <HelloWorld /> -->
     <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
-    <v-container v-if="signedIn && haveChoreData && !myDbChores.items" >
+    <v-container v-if="!myFilteredChores.items" >
          <v-card class="py-28">
                 <v-card-title>
                         <h2>Welcome to Chores With Rewards!</h2>
@@ -12,8 +12,7 @@
          </v-card>
          <v-btn class="my-5" align="right" to="/Chores">Manage Chores</v-btn>
     </v-container>
-    <v-container class="my-5" v-if="signedIn && myDbChores.items">
-
+    <v-container class="my-5" v-if="myFilteredChores.items">
           <v-layout row class="mb-3">
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
@@ -31,34 +30,9 @@
                   </v-btn>
                   <span>Sort by next due date</span>
               </v-tooltip>
-              <!--<v-btn small flat color="grey" @click="addUser">
-                    <span class="caption text-lowercase">Add User</span>
-              </v-btn>-->
           </v-layout>
 
-       <!--   <v-card flat v-for="cwr in choresWithRewards" :key="cwr.chore">
-              <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
-                 <v-flex xs12 md6>
-                     <div class="caption grey--text">Chore</div>
-                     <div>{{ cwr.chore }}</div>
-                 </v-flex>
-                 <v-flex xs6 sm4 md2>
-                     <div class="caption grey--text">Reward</div>
-                     <div>{{ cwr.reward }}</div>
-                 </v-flex>
-                 <v-flex xs6 sm4 md2>
-                     <div class="caption grey--text">Due by</div>
-                     <div>{{ cwr.nextDueDate }}</div> 
-                 </v-flex>
-                 <v-flex xs2 sm4 md2>
-                     <div class="right">
-                        <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}</v-chip>
-                     </div>
-                 </v-flex>
-              </v-layout>
-              <v-divider></v-divider>
-          </v-card> -->
-           <v-card flat v-for="cwr in myDbChores.items" :key="cwr.title">
+           <v-card flat v-for="cwr in myFilteredChores.items" :key="cwr.title" >
               <v-layout row wrap :class="`pa-3 choresWithRewards ${cwr.status}`">
                   <v-flex xs12 md4>
                      <div class="caption grey--text">Chore</div>
@@ -70,8 +44,8 @@
                   </v-flex>
                   <v-flex xs8 sm3 md2>
                       <div class="caption grey--text">Due by</div> 
-                      <!-- <div>{{ cwr.ChoreDates.items[0] && cwr.nextDueDate }}</div> -->
-                      <div>{{cwr.nextDueDate }}</div>
+                       <!-- <div>{{cwr.nextDueDate }}</div>  -->
+                       <div v-if="cwr.ChoreDates.filteredItems[0]">{{cwr.ChoreDates.filteredItems[0].targetDate }}</div> 
                   </v-flex> 
                   <v-flex xs2 sm3 md2>
                      <div class="right">
@@ -110,11 +84,6 @@ export default {
   data(){
     return {
       apiRequest: false,
-      choresWithRewards: [
-         {chore: 'Take out the trash', reward: '$5', nextDueDate: '08/24/2019', status: 'Complete'},
-         {chore: 'Clean Room', reward: 'Icecream', nextDueDate: '08/26/2019', status: 'RewardPending'},
-         {chore: 'Give Dogs Bath', reward: '$2', nextDueDate: '08/30/2019', status: 'ChorePending'}
-      ],
     haveChoreData : false,
     }
   },
@@ -122,59 +91,37 @@ export default {
       signedIn(){
           return this.$store.getters.signedIn;
       },
-      //myFilteredChores(){
-      //const filteredChores=this.$store.getters.choresWithRewards;
-      //    if (filteredChores.items) {
-      //    for (var idx = 0; idx < filteredChores.items.length; idx++) {
-      //                           filteredChores.items[idx].status='No-Date';
-      //                           filteredChores.items[idx].ChoreDates.items = filteredChores.items[idx].ChoreDates.items.filter(function (numbir) {
-      //                                                         return !numbir.rewardDate
-      //                                                    }); 
-      //        }
-      //    }
-      //return filteredChores;
-      //},
-      myDbChores(){
-          this.apiRequest=true;
-       const dbChores=this.$store.getters.choresWithRewards;
-          if (dbChores.items) {
-          for (var idx = 0; idx < dbChores.items.length; idx++) {
-                                 dbChores.items[idx].status='No-Date';
-                                 const filteredChoreDates = dbChores.items[idx].ChoreDates.items
-                                 //var filteredChoreDates = dbChores.items[idx].ChoreDates.items.filter(function (numbir) {
-                                 //                              return !numbir.rewardDate
-                                 //                         });
-                                 //console.log('where is filteredChoreDates?');
-                                 //console.log(filteredChoreDates.items[0].rewardDate);
-                                 //filteredChoreDates =  filteredChoreDates.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1);
-                                 if (dbChores.items[idx].ChoreDates.items[0]) {
-                                 //if (filteredChoreDates.items[0]) {
-                                     for (var dateIdx=0; dateIdx < dbChores.items[idx].ChoreDates.items.length; dateIdx++) {
-                                     //for (var dateIdx=0; dateIdx < filteredChoreDates.items.length; dateIdx++) {
-                                        dbChores.items[idx].status='Complete';
-                                        if (dbChores.items[idx].ChoreDates.items[dateIdx].rewardDate == null) {
-                                     //   if (filteredChoreDates.items[dateIdx].rewardDate == null) {
-                                            dbChores.items[idx].status='RewardPending';
-                                            if (dbChores.items[idx].ChoreDates.items[dateIdx].completeDate == null) {
-                                     //       if (filteredChoreDates.items[dateIdx].completeDAte == null) {
-                                                const targetDate=dbChores.items[idx].ChoreDates.items[dateIdx].targetDate;
-                                     //             const targetDAte=filteredChoreDates.items[dateIdx].targetDate;
-                                     //           console.log(targetDate);
-                                                  dbChores.items[idx].nextDueDate = targetDate;
-                                                  dbChores.items[idx].status='ChorePending';
+      myFilteredChores(){
+      var todaysDate= new Date();
+      var targetDate= new Date();
+      console.log(todaysDate);
+      const filteredChores=this.$store.getters.choresWithRewards;
+          if (filteredChores.items) {
+          for (var idx = 0; idx < filteredChores.items.length; idx++) {
+                             //    filteredChores.items[idx].ChoreDates.items = 
+                             //              filteredChores.items[idx].ChoreDates.items.filter(function (numbir) {
+                             //                                                                  return numbir.rewardDate === null
+                             //                                                                }).sort((a,b) => a.targetDate < b.targetDate ? -1 : 1);
+ 
+              filteredChores.items[idx].ChoreDates.filteredItems = filteredChores.items[idx].ChoreDates.items.filter(item => item.rewardDate === null);
+              filteredChores.items[idx].ChoreDates.sortedItems = filteredChores.items[idx].ChoreDates.filteredItems.sort((a,b) => a.targetDate < b.targetDate ? -1 : 1);
+              //var targetDate= new Date(filteredChores.items[idx].ChoreDates.sortedItems[0].targetDate);
+              //targetDate.setMinutes(targetDate.getMinutes()+5);
+              //console.log(targetDate);
+              //console.log(filteredChores.items[idx].ChoreDates.sortedItems[0].targetDate);
+                   if (filteredChores.items[idx].ChoreDates.sortedItems[0]) { 
+                           targetDate= new Date(filteredChores.items[idx].ChoreDates.sortedItems[0].targetDate);
+                           if (targetDate > todaysDate) {
+                                      filteredChores.items[idx].status='Complete';
+                           } else if (filteredChores.items[idx].ChoreDates.sortedItems[0].completeDate == null) {
+                                      filteredChores.items[idx].status='ChorePending';
+                                    } else if (filteredChores.items[idx].ChoreDates.sortedItems[0].rewardDate == null) {
+                                                 filteredChores.items[idx].status='RewardPending';
                                             }
-                                        }
-                                     }
-                                }
-                             }
-          } else {
-           // dbChores = {items: [{title: 'Sample Chore: Add Chore', reward:{name: ''}, nextDueDate: 'Today', status: 'ChorePending'},
-           //                        {title: 'Sample Chore: Add Reward',reward:{name: ''},nextDueDate:'Today', status:'ChorePending'}]};
-
+                   } else {filteredChores.items[idx].status='No-Date'}
+              }
           }
-          if (this.signedIn==true) { this.haveChoreData = true; }
-          this.apiRequest=false;
-          return dbChores;
+      return filteredChores;
       },
    },
    methods: {
@@ -182,20 +129,6 @@ export default {
          //this.choresWithRewards.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
          this.myDbChores.items.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
      },
-     addUser(){
-         alert('in addUser');
-         const userDetails = {
-               userName: 'Jeffy',
-               email: 'jeff_a_ryan@yahoo.com'
-         };
-         const newUser = API.graphql(
-               graphqlOperation(mutations.createUser, { input: userDetails })
-             )
-               .then(res => {
-                    this.$router.push("/home");
-                })
-               .catch(err => (this.error = err.message));
-    },
    },
 };
 </script>
