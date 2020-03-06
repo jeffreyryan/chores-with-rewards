@@ -28,6 +28,34 @@
                           ></v-select>
                       </template>
                   </v-menu>  
+                  <v-menu
+                           ref="menu"
+                           v-model="menu2"
+                           :close-on-content-click="false"
+                           :return-value.sync="dates"
+                           transition="scale-transition"
+                           offset-y
+                           full-width
+                           min-width="290px"
+                       >
+                           <template v-slot:activator="{ on }">
+                                <v-combobox
+                                   v-model="dates"
+                                   multiple
+                                   chips
+                                   small-chips
+                                   label="Chore Dates"
+                                   prepend-icon="event"
+                                   readonly
+                                   v-on="on">
+                                </v-combobox>
+                           </template>
+                           <v-date-picker v-model="dates" multiple no-title scrollable>
+                               <v-spacer></v-spacer>
+                               <v-btn text color="primary" @click="menu2= false">Cancel</v-btn>
+                               <v-btn text color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
+                           </v-date-picker>
+                      </v-menu>
                   <v-spacer></v-spacer>
                   <v-btn text class="success mx-0 mt-3" :loading="addingChore" @click="submit">Add Chore</v-btn>
                 </v-form>
@@ -49,6 +77,10 @@ import { API, graphqlOperation } from "aws-amplify";
           title: '',
           content: '',
           menu1: false,
+          menu2: false,
+          dates:[],
+          choreDates:{},
+          choreID: '',
           addingChore: false,
           dialog: false,
           inputRules: [
@@ -70,14 +102,49 @@ import { API, graphqlOperation } from "aws-amplify";
                   graphqlOperation(mutations.createChore, { input: choreDetails })
               )
                 .then (res => {
+                  this.choreID=res.data.createChore.id;
+                  console.log(this.choreID);
+                  for (var dateIndex = 0; dateIndex < this.dates.length; dateIndex++) {
+       
+                     
+
+                      const choreDateDetails = {
+                         targetDate : this.dates[dateIndex],
+                         choreDateChoreId:this.choreID
+                      };
+                      const newChoreDate = API.graphql(
+                          graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
+                      )
+                        .then (res => {
+                              //this.$router.push("/Chores");
+                              //window.location.reload();
+                         })
+                        .catch(err => (this.error = err.message));
+                  }
                   this.$store.dispatch('populatedbUser',this.dbUser);
                   this.$router.push("/Chores");
                 })
                 .catch(err => (this.error = err.message));
-              // setTimeout(function(){
-              //   console.log(this.title , this.content);
-              //},1)
-            console.log(this.content);
+              console.log(this.choreID);
+              // Insert chore dates
+              for (var dateIndex = 0; dateIndex < this.dates.length; dateIndex++) {
+       
+                     
+
+                      const choreDateDetails = {
+                         targetDate : this.dates[dateIndex],
+                         choreDateChoreId:this.choreID
+                      };
+                     console.log(choreDateDetails);  
+                     // const newChoreDate = API.graphql(
+                     //     graphqlOperation(mutations.createChoreDate, {input: choreDateDetails })
+                     // )
+                     //   .then (res => {
+                     //         //this.$router.push("/Chores");
+                     //         //window.location.reload();
+                     //    })
+                     //   .catch(err => (this.error = err.message));
+               } 
            }
            this.addingChore=false;
            this.dialog=false;

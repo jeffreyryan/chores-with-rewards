@@ -67,7 +67,6 @@ export default {
       //   })
       //},
       myDbChores(){
-          //console.log('computing myDbChores');
           return this.$store.getters.choresWithRewards;
       },
       dbUser(){
