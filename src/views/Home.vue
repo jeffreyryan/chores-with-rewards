@@ -38,23 +38,23 @@
                      <div class="caption grey--text">Chore</div>
                      <div>{{ cwr.title }} </div>
                   </v-flex>
-                  <v-flex xs6 sm3 md2>
+                  <v-flex xs12 sm3 md2>
                       <div class="caption grey--text">Reward</div>
                       <div>{{cwr.reward && cwr.reward.name}} </div>
                   </v-flex>
-                  <v-flex xs8 sm3 md2>
+                  <v-flex xs6 sm3 md2>
                       <div class="caption grey--text">Due by</div> 
                        <!-- <div>{{cwr.nextDueDate }}</div>  -->
                        <div v-if="cwr.ChoreDates.filteredItems[0]">{{cwr.ChoreDates.filteredItems[0].targetDate }}</div> 
                   </v-flex> 
-                  <v-flex xs2 sm3 md2>
-                     <div class="right">
+                  <v-flex xs3 sm3 md2 >
+                     <div class="right d-flex justify-end">
                         <v-chip small :class="`${cwr.status} white--text caption my-2`">{{ cwr.status }}
                         </v-chip>
                      </div>
                  </v-flex> 
-                 <v-flex xs2 sm3 md2>
-                     <div class="left ">
+                 <v-flex xs3 sm3 md2>
+                     <div class="right">
                         <UpdateChoreDates :choreID="cwr.id" />
                      </div>
                  </v-flex> 
@@ -114,9 +114,9 @@ export default {
                            if (targetDate > todaysDate) {
                                       filteredChores.items[idx].status='Complete';
                            } else if (filteredChores.items[idx].ChoreDates.sortedItems[0].completeDate == null) {
-                                      filteredChores.items[idx].status='ChorePending';
+                                      filteredChores.items[idx].status='Chore-Pending';
                                     } else if (filteredChores.items[idx].ChoreDates.sortedItems[0].rewardDate == null) {
-                                                 filteredChores.items[idx].status='RewardPending';
+                                                 filteredChores.items[idx].status='Reward-Pending';
                                             }
                    } else {filteredChores.items[idx].status='No-Date'}
               }
@@ -143,10 +143,10 @@ export default {
   border-left: 4px solid green;
 }
 
-.choresWithRewards.RewardPending {
+.choresWithRewards.Reward-Pending {
   border-left: 4px solid orange;
 }
-.choresWithRewards.ChorePending {
+.choresWithRewards.Chore-Pending {
   border-left: 4px solid tomato;
 }
 
@@ -158,10 +158,10 @@ export default {
   background: green !important;
 }
 
-.v-chip.RewardPending {
+.v-chip.Reward-Pending {
   background: orange !important;
 }
-.v-chip.ChorePending {
+.v-chip.Chore-Pending {
   background: tomato !important;
 }
 
