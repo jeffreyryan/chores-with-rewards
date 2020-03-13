@@ -1,13 +1,13 @@
 <template>
    <div>
       <v-layout align-center justify-center>
-          <v-flex v-if="!user" xs12 sm8 md4 >
+          <v-flex v-if="!user" xs12 sm8 md4 class="pt-4" >
               <v-flex xs12>
                    <router-link> to="/"
                        <v-img :src="require('../assets/cwr_logo_2.svg')" class="my-3" contain height="65"></v-img>
                    </router-link>
               </v-flex>
-              <v-card class="elevation-12">
+              <v-card class="elevation-12 ">
                   <v-toolbar dark color="primary">
                       <v-toolbar-title>Sign Up</v-toolbar-title>
                   </v-toolbar>
@@ -29,13 +29,32 @@
           </v-card>
           <p align="center" >Have an account? <a href="home">Login</a></p>
       </v-flex>
+          <v-flex v-if="user" xs12 sm8 md4 class="pt-4" >
+              <v-card class="elevation-12">
+                  <v-toolbar dark color="primary">
+                      <v-toolbar-title>Confirm Your Code</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                      <v-form>
+                          <v-text-field v-model="code" name="confirmCode" label="Confirmation Code" type="text"></v-text-field>
+                      </v-form>
+                  </v-card-text>
+                  <!-- <input v-model="code" type="text" placeholder="Confirmation Code"><br> -->
+                  <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn @click=confirm align>Submit</v-btn>
+                      <v-spacer></v-spacer>
+                  </v-card-actions>
+              </v-card>
+          </v-flex>
       </v-layout>
-      <div v-if="user">
+      <!-- <v-layout align-center justify-center>
+      <div v-if="user" p4>
           <h2>Confirm Sign Up</h2>
           <input v-model="code" type="text" placeholder="Confirmation Code"><br>
-          <v-btn @click=confirm>Submit</v-btn>
-          <v-btn @click=insertUser>add db user</v-btn>
+          <v-btn @click=confirm align-center>Submit</v-btn>
       </div>
+      </v-layout> -->
    </div>
 </template>
 
@@ -59,26 +78,13 @@
         console.log(this.user.username);
         Auth.confirmSignUp(this.login,this.code, {
               forceAliasCreation: true
-           }).then(data => console.log(data))
+           }).then(data => {console.log(data);
+                            console.log('got here');
+                           this.$router.push("/");
+                           }
+                  )
             .catch(err => console.log(err));
         },
-         insertUser() {           // cant get this to work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-             console.log(this.login);
-             alert('got here');
-              const userDetails = {
-                  userName: 'jerry',
-                  email: this.email
-              };
-              const newUser = API.graphql(
-                  graphqlOperation(mutations.createUser, { input: userDetails })
-              )
-                  .then(res => {
-                      this.$router.push("/");
-                  })
-                  // .catch(err => (this.error = err.message));
-                  .catch(err => console.log(err));
-             alert('got here also');
-         },
         submit(){
           Auth.signUp({
               username: this.login,
