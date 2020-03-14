@@ -8,7 +8,7 @@
                    </router-link>
               </v-flex>
               <v-card class="elevation-12 ">
-                  <v-toolbar dark color="primary">
+                  <v-toolbar>
                       <v-toolbar-title>Sign Up</v-toolbar-title>
                   </v-toolbar>
                   <v-card-text>
@@ -31,7 +31,7 @@
       </v-flex>
           <v-flex v-if="user" xs12 sm8 md4 class="pt-4" >
               <v-card class="elevation-12">
-                  <v-toolbar dark color="primary">
+                  <v-toolbar>
                       <v-toolbar-title>Confirm Your Code</v-toolbar-title>
                   </v-toolbar>
                   <v-card-text>
