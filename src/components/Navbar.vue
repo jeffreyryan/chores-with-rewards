@@ -36,7 +36,7 @@
 
       </v-navigation-drawer>
     <v-toolbar
-      color="deep-purple accent-4"
+      color="primary"
       dense
       dark
     >
