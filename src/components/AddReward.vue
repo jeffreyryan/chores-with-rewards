@@ -12,7 +12,7 @@
                   <v-text-field label="Title" v-model="title" prepend-icon="folder" :rules="inputRules"></v-text-field>
                   <v-textarea label="Information" v-model="content" prepend-icon="edit" :rules="inputRules"></v-textarea>
                   
-                  <v-menu
+                  <!--<v-menu
                       v-model="menu1"
                       :close-on-content-click="false"
                       full-width
@@ -27,11 +27,11 @@
                               v-on="on"
                           ></v-text-field>
                       </template>
-                      <!-- <v-date-picker
+                       <v-date-picker
                           v-model="due"
                           @change="menu1 = false"
-                      ></v-date-picker> -->
-                  </v-menu>
+                      ></v-date-picker> 
+                  </v-menu> -->
                   <v-spacer></v-spacer>
 
                   <v-btn flat class="success mx-0 mt-3" :loading="addingReward" @click="submit">Add Reward</v-btn>
