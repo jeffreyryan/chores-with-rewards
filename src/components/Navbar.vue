@@ -1,6 +1,6 @@
 <template>
   <div>
-        <v-navigation-drawer v-model="drawer" absolute temporary color="deep-purple accent-4">
+        <v-navigation-drawer v-model="drawer" absolute temporary color="primary">
            <v-btn icon right class="red">
                <v-icon class="white--text" @click="drawer = !drawer">mdi-chevron-left</v-icon>
            </v-btn>

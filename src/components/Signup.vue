@@ -8,7 +8,7 @@
                    </router-link>
               </v-flex>
               <v-card class="elevation-12 ">
-                  <v-toolbar dark color="deep-purple accent-4">
+                  <v-toolbar dark color="primary">
                       <v-toolbar-title>Sign Up</v-toolbar-title>
                   </v-toolbar>
                   <v-card-text>
