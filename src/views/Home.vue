@@ -3,16 +3,16 @@
   <div>
     <!-- <HelloWorld /> -->
     <v-progress-linear v-if="apiRequest" :indeterminate="true" class="ma-0"></v-progress-linear>
-    <v-container v-if="!myFilteredChores.items" >
+    <v-container v-if="myFilteredChores.items.length===0" >
          <v-card class="py-28">
                 <v-card-title>
                         <h2>Welcome to Chores With Rewards!</h2>
                 </v-card-title>
-                <v-card-text class="py-16">To get started, Go to the Chores page or click the button below.</v-card-text>
+                <v-card-text class="py-16">To get started, watch Jayden's video on creating your first chore.</v-card-text>
          </v-card>
-         <v-btn class="my-5" align="right" to="/Chores">Manage Chores</v-btn>
+         <!-- <v-btn class="my-5" align="right" to="/Chores">Manage Chores</v-btn> -->
     </v-container>
-    <v-container class="my-5" v-if="myFilteredChores.items">
+    <v-container class="my-5" v-if="myFilteredChores.items.length !==0">
           <v-layout row class="mb-3">
               <v-tooltip top>
                 <template v-slot:activator="{ on }">

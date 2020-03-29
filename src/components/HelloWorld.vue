@@ -50,15 +50,31 @@ export default {
       },
   },
   methods: {
-    signIn(){
-        Auth.signIn(this.login, this.password)
-          .then(user =>{
-            this.$store.dispatch('signIn');
-            this.$store.dispatch('populatedbUser',this.dbUser);
-            window.location.reload();
-          })
-          .catch(err => console.log(err));
-    },
+   // signIn(){
+   //     Auth.signIn(this.login, this.password)
+   //       .then(user =>{
+   //         console.log(user); 
+   //         this.$store.dispatch('signIn');
+   //         this.$store.dispatch('populatedbUser',this.dbUser);
+   //         window.location.reload();
+   //       })
+   //       .catch(err => console.log(err));
+   // },
+    async signIn(){
+        try {
+           console.log('HELLO');
+           const user = await Auth.signIn(this.login, this.password);
+           this.$store.dispatch('signIn');
+           //console.log('In signIn, before populatedbuser');
+           //console.log(this.dbUser);
+           await this.$store.dispatch('populateddbUser',this.dbUser);
+           //console.log('In signIn, after populatedbuser');
+           //console.log(this.dbUser);
+           window.location.reload();
+        } catch (err) {
+            this.$store.dispatch('signOut');
+          }
+    }, 
     signOut(){
         Auth.signOut()
           .then(data =>{

@@ -49,7 +49,6 @@
 <script>
 import { Auth } from 'aws-amplify'
 import { AmplifyEventBus } from 'aws-amplify-vue';
-// import Popup from './Popup'
 
 export default {
   name: "Navbar",
@@ -105,12 +104,12 @@ export default {
       },
       async findUser(){
         try {
-          console.log('IN FINDUSER');
-          //const user = await Auth.currentAuthenticatedUser();
           this.user = await Auth.currentAuthenticatedUser();
+
           this.$store.dispatch('signIn');
-          this.$store.dispatch('populatedbUser',this.user.username);
+          await this.$store.dispatch('populatedbUser',this.user.username);
           this.$store.dispatch('populateRewards',this.user.username);
+          
         } catch (err){
            this.$store.dispatch('signOut');
           }
